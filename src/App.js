@@ -4,8 +4,7 @@ import { Route, Link} from 'react-router-dom'
 import './App.css'
 
 class BooksApp extends React.Component {
-  state = {
-}
+  state = { }
 
   render() {
     return (
