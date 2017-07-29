@@ -2,13 +2,15 @@ import React from 'react'
 
 class Book extends React.Component {
 
+    onShelfChange = event => {console.log(this.props); this.props.changeBookShelf(this.props.book, event.target.value)}
+
     render() {
         return (
             <div className="book">
             <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundSize: '100% 100%', backgroundImage: 'url(' + this.props.book.imageLinks.smallThumbnail + ')' }}></div>
                 <div className="book-shelf-changer">
-                <select>
+                <select onChange={this.onShelfChange} value={this.props.book.shelf}>
                     <option value="none" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>

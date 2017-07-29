@@ -1,35 +1,59 @@
 import React from 'react'
 import * as BooksAPI from './utils/BooksAPI'
-import { Route, Link} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import SearchBooks from './SearchBooks'
-import Book from './Book'
+import BookShelves from './BookShelves'
 import './App.css'
 
 class BooksApp extends React.Component {
   state = { 
-    shelfs :{
+    shelves: {
       currentlyReading: [],
       wantToRead: [],
       read: [],
     }
   }
 
-  updateShelfs = () => {
-    BooksAPI.getAll()
-      .then(books => this.groupBooksIntoShelfs(books))
-      .then(shelfs => this.setState({ shelfs: shelfs }))
+  getShelves = () => BooksAPI.getAll()
+      .then(books => this.groupBooksIntoShelvesByValue(books))
+      .then(shelves => this.setState({ shelves }))
+
+  changeBookShelf = (book, shelf) => BooksAPI.update(book, shelf)
+      .then(shelvesMap => this.groupBooksIntoShelvesWithMap(this.getBooksFromShelves(this.state.shelves), shelvesMap))
+      .then(shelves => this.setState({ shelves }))
+
+  getBooksFromShelves = shelves => {
+      let books = []
+      Object.values(shelves).map(_books => books = books.concat(_books))
+      return books
   }
 
-  groupBooksIntoShelfs = books => {
-    let shelfs = {}
-    books.map(book => shelfs[book.shelf] ? shelfs[book.shelf].push(book) : shelfs[book.shelf] = [book])
-    return shelfs
+  groupBooksIntoShelvesByValue = books => {
+    let shelves = {}
+    books.map(book => shelves[book.shelf] 
+              ? shelves[book.shelf].push(book) 
+              : shelves[book.shelf] = [book])
+    return shelves
   }
 
-  changeBookShelf = () => { }
+  groupBooksIntoShelvesWithMap = (books, shelvesMap) => {
+    let shelves = {}
+    Object.keys(shelvesMap).map(shelfType => {
+      return shelvesMap[shelfType].map(bookId => {
+        shelves[shelfType] = shelves[shelfType] ? shelves[shelfType] : []
+        return books.map(book => {
+          if(book.id === bookId) { 
+            book.shelf = shelfType
+            shelves[shelfType].push(book)
+          }
+        })
+      })
+    })
+    return shelves
+  }
 
-  componentDidMount() {
-    return this.updateShelfs()
+  componentWillMount() {
+    return this.getShelves()
   }
 
   render() {
@@ -39,67 +63,17 @@ class BooksApp extends React.Component {
           path="/"
           exact
           render={() => (
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                <div>
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Currently Reading</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                        {this.state.shelfs.currentlyReading.map(book => (
-                          <li key={book.id}>
-                            <Book book={book} />
-                            </li>
-                          ))
-                        }
-                      </ol>
-                    </div>
-                  </div>
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Want to Read</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                        {this.state.shelfs.wantToRead.map(book => (
-                          <li key={book.id}>
-                            <Book book={book} />
-                            </li>
-                          ))
-                        }
-                      </ol>
-                    </div>
-                  </div>
-                  <div className="bookshelf">
-                    <h2 className="bookshelf-title">Read</h2>
-                    <div className="bookshelf-books">
-                      <ol className="books-grid">
-                        {this.state.shelfs.read.map(book => (
-                          <li key={book.id}>
-                            <Book book={book} />
-                            </li>
-                          ))
-                        }
-                      </ol>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="open-search">
-                <Link
-                  to="/search">
-                  Add a book
-                </Link>
-              </div>
-            </div>
+            <BookShelves 
+              shelves={this.state.shelves}
+              changeBookShelf={(book, shelf) => this.changeBookShelf(book, shelf)}
+            />
           )}
         />
         <Route 
           path="/search"
           render={() => (
             <SearchBooks 
-              shelfs={this.state.shelfs}
+              shelves={this.state.shelves}
             />
           )}
         />
