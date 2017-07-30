@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import * as BooksAPI from './utils/BooksAPI'
-import Book from './common/Book'
+import * as BooksAPI from '../../utils/BooksAPI'
+import Book from '../common/Book'
 
 class SearchBooks extends React.Component {
     state = {
@@ -16,6 +16,12 @@ class SearchBooks extends React.Component {
             .then(books => this.setState({books: books}))
         else this.setState({books: []})
     }
+
+    changeBookShelf = (book, shelf) => {
+        this.props.changeBookShelf(book, shelf)
+            .then(() => this.state.books)
+    }
+
     searchBooks = query => {
         return BooksAPI.search(query)
             .then(books => books instanceof Array ? books : [])
@@ -25,6 +31,7 @@ class SearchBooks extends React.Component {
             return books.findIndex(_book => _book.id === book.id) === pos
         });
     }
+
     render() {
         return (
             <div className="search-books">
@@ -45,7 +52,15 @@ class SearchBooks extends React.Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {
-                            this.state.books.map(book=> (<li key={book.id}><Book book={book}/></li>))
+                            this.state.books.map(book=> (
+                                <li key={book.id}>
+                                    <Book 
+                                    book={this.props.books.filter(_book => _book.id === book.id).length ? this.props.books.filter(_book => _book.id === book.id)[0] : book}
+                                    changeBookShelf={this.props.changeBookShelf}
+                                    />
+                                </li>
+                                )
+                            )
                         }
                     </ol>
                 </div>
