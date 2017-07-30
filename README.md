@@ -1,3 +1,8 @@
 # MyReads
 ## Udacity React Nanodegree Project 1
-In progress
+
+### How to install
+1. `$ npm install`
+2. `$ npm start`
+
+App should be accessable at "localhost:3000/"
