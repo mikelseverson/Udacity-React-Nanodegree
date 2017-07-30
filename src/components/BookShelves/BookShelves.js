@@ -14,7 +14,7 @@ class BookShelves extends React.Component {
                   <BookShelf
                     bookshelfTitle='Currently Reading'
                     changeBookShelf={this.props.changeBookShelf}
-                    books={
+                    booksInShelf={
                       this.props.books.filter(
                           book => book.shelf === 'currentlyReading'
                       )}
@@ -22,7 +22,7 @@ class BookShelves extends React.Component {
                   <BookShelf
                     bookshelfTitle='Want to Read'
                     changeBookShelf={this.props.changeBookShelf}
-                    books={
+                    booksInShelf={
                       this.props.books.filter(
                           book => book.shelf === 'wantToRead'
                       )}
@@ -30,7 +30,7 @@ class BookShelves extends React.Component {
                   <BookShelf
                     bookshelfTitle='Read'
                     changeBookShelf={this.props.changeBookShelf}
-                    books={
+                    booksInShelf={
                       this.props.books.filter(
                           book => book.shelf === 'read'
                       )}

@@ -27,9 +27,9 @@ class SearchBooks extends React.Component {
             .then(books => books instanceof Array ? books : [])
     }
     removeDuplicateBooks = books => {
-        return books.filter((book, pos, books) => {
-            return books.findIndex(_book => _book.id === book.id) === pos
-        });
+        return books.filter((book, pos, books) => 
+            books.findIndex(_book => _book.id === book.id) === pos
+        );
     }
 
     render() {
