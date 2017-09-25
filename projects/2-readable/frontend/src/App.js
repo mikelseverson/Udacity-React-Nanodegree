@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import './App.css';
 
 class App extends Component {
@@ -19,27 +19,44 @@ class App extends Component {
 
   render() {
     return (
-      
       <div className="App">
         <div className="App-header">
-          <h2>Welcome to Readable</h2>
-          {/* list of categories */}
+          <h2>
+            Welcome to Readable
+          </h2>
           <p>
-            {
-              /* should link to a category view for that category */
-              this.state.categories
-                .map((category, index) => ' ' +  category.name +  ' ')
+            <Link 
+              to="/">
+              Home
+            </Link>
+            {this.state.categories
+                .map((category, index) => 
+                  <Link 
+                    to={`/category/${category.path}`} 
+                    key={category.path}>
+                    {category.name}
+                  </Link>
+                )
             }
           </p>
         </div>
         <Route
           path="/"
+          name=""
           exact
-          render={() => (<p>hi</p>)}
+          render={() => (
+            <p>
+              Home
+            </p>
+            )}
         />
         <Route 
-          path="/category/:name"
-          render={() => null}
+          path="/category/:slug"
+          render={({match}) => (
+            <p>
+              {match.params.slug}
+            </p>
+            )}
         />
         <Route 
           path="/post"
