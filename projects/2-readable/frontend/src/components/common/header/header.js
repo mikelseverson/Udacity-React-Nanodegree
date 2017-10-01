@@ -7,18 +7,18 @@ class Header extends Component {
   render() {
     return (
       <div className="App-header">
-          <h2 tabIndex="0">
+        <h2 tabIndex="0">
           Welcome to Readable
-          </h2>
-          <p>
+        </h2>
+        <p>
           <Link 
-              to="/">
-              Home
+            to="/">
+            Home
           </Link>
           <CategoryNavigation
-              categories={this.props.categories}
+            categories={this.props.categories}
           />
-          </p>
+        </p>
       </div>
     )
   }
