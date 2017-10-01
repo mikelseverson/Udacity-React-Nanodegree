@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom'
-import CategoryNavigation from './common/categoryNavigation/categoryNavigation'
+import Header from './common/header/header'
 import ListPosts from './common/listPosts/listPosts'
 import './App.css';
 
@@ -20,8 +20,9 @@ class App extends Component {
     .then(data => this.setState(data));
   }
 
-  getPosts = () => {
-    let url = `http://localhost:3001/posts`;
+  getPosts = category => {
+    var url = `http://localhost:3001`;
+    url += category ? `/${category}/posts` : `/posts`;
     return fetch(url, { headers: { 'Authorization': 'authman' } })
     .then(res => res.json())
     .then(data => this.setState({posts: data}));
@@ -35,21 +36,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2 tabIndex="0">
-            Welcome to Readable
-          </h2>
-          <p>
-            <Link 
-              to="/">
-              Home
-            </Link>
-            <CategoryNavigation
-              categories={this.state.categories}
-            />
-          </p>
-        </div>
-        <Route
+        <Header
+          categories={this.state.categories}
+        />
+        <Route 
           path="/"
           exact
           render={() => 
@@ -61,9 +51,14 @@ class App extends Component {
         <Route 
           path="/category/:slug"
           render={({match}) => 
-            <p>
-              {match.params.slug}
-            </p>
+            <div>
+              <p>
+                {match.params.slug}
+              </p>
+              <ListPosts 
+                posts={this.state.posts}
+              />
+            </div>
           }
         />
         <Route 
