@@ -5,18 +5,21 @@ class ListPosts extends Component {
 
   render() {
     return (
-      <ul>
-        {this.props.posts
-          .map(post => 
-            <li key={post.id}>
-              <Link
-                to={`/post/${post.id}`}>
-                {post.title}
-              </Link>
-            </li>
-          )
-        }
-      </ul>
+      <div>
+        <h2>Posts {this.props.category && ('- ' + this.props.category)}</h2> 
+        <ul>
+          {this.props.posts
+            .map(post => 
+              <li key={post.id}>
+                <Link
+                  to={`/post/${post.id}`}>
+                  {post.title}
+                </Link>
+              </li>
+            )
+          }
+        </ul>
+      </div>
     )
   }
 }

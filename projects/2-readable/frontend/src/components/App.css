@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .App-header {
@@ -7,4 +7,5 @@
   height: 65px;
   padding: 20px;
   color: white;
+  text-align: center;
 }

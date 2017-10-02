@@ -59,27 +59,23 @@ class App extends Component {
         <Route 
           path="/category/:slug"
           render={({match}) => 
-            <div>
-              <p>
-                {match.params.slug}
-              </p>
-              <ListPosts 
-                posts={this.state.posts}
-              />
-            </div>
+            <ListPosts 
+              category={match.params.slug}
+              posts={this.state.posts}
+            />
           }
         />
         <Route 
           path="/post/:id"
           render={({match}) =>
             <ViewPost 
-              post={this.state.posts.filter(post => post.id === match.params.id)[0]} 
+              post={this.state.posts.filter(post => post.id === match.params.id)[0]}
             />
           }
         />
         <Route 
-          path="/post/create/:id"
-          render={() => null}
+          path="/post/create/:id?"
+          render={() => <div>{'Create Post'}</div>}
         />
       </div>
     );

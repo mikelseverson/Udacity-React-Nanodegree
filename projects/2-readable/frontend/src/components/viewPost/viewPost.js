@@ -8,14 +8,12 @@ class ViewPost extends Component {
       <div>
         {this.props.post && 
           <span>
-            <p>{this.props.post.id}</p>
-            <p>{this.props.post.timestamp}</p>
-            <p>{this.props.post.title}</p>
+            {/* <p>{this.props.post.id}</p>
+            <p>{this.props.post.timestamp}</p> */}
+            <h2>{this.props.post.title}</h2>
             <p>{this.props.post.body}</p>
-            <p>{this.props.post.author}</p>
-            <p>{this.props.post.category}</p>
-            <p>{this.props.post.voteScore}</p>
-            <p>{this.props.post.deleted + ' '}</p>
+            <p>Author: {this.props.post.author}</p>
+            <p>Score: {this.props.post.voteScore}</p>
           </span>
         }
       </div>
