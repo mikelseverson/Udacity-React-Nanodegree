@@ -2,23 +2,30 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import CategoryNavigation from './categoryNavigation/categoryNavigation'
 
+import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
+import AppBar from 'material-ui/AppBar';
+
 class Header extends Component {
 
   render() {
     return (
-      <div className="App-header">
-        <h2 tabIndex="0">
-          Welcome to Readable
-        </h2>
-        <p>
-          <Link 
-            to="/">
-            Home
-          </Link>
-          <CategoryNavigation
-            categories={this.props.categories}
+      <div>
+        <AppBar
+            title="Welcome to Readable"
+            showMenuIconButton={false}
           />
-        </p>
+        <Toolbar>
+          <ToolbarGroup firstChild={true}>
+            <Link 
+              to="/">
+              All
+            </Link>
+            &nbsp;
+            <CategoryNavigation
+              categories={this.props.categories}
+            />
+          </ToolbarGroup>
+        </Toolbar>
       </div>
     )
   }

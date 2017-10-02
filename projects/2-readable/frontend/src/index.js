@@ -3,7 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { BrowserRouter } from 'react-router-dom'
 
-ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'))
+const Root = () => (
+    <MuiThemeProvider>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </MuiThemeProvider>
+  );
+ReactDOM.render(
+    <Root />,
+    document.getElementById('root')
+)
+
 registerServiceWorker();

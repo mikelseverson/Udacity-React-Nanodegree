@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 class ListPosts extends Component {
 
   render() {
     return (
       <div>
-        <h2>Posts {this.props.category && ('- ' + this.props.category)}</h2> 
-        <ul>
+          <br />
           {this.props.posts
             .map(post => 
-              <li key={post.id}>
-                <Link
-                  to={`/post/${post.id}`}>
-                  {post.title}
-                </Link>
-              </li>
+            <span>
+              <Card key={post.id}>
+                <CardHeader
+                  title={post.title}
+                />
+                <CardActions>
+                  <Link
+                    to={`/post/${post.id}`}>
+                    View Post
+                  </Link>
+                </CardActions>
+              </Card>
+              <br />
+              </span>
             )
           }
-        </ul>
       </div>
     )
   }
