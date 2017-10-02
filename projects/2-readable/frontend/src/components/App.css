@@ -9,3 +9,12 @@
   color: white;
   text-align: center;
 }
+
+.post-card {
+  margin: 10px auto;
+  width: 75%;
+}
+.post-detail {
+    margin: 10px auto;
+    width: 80%;
+}

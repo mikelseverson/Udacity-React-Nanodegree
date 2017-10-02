@@ -16,6 +16,7 @@ class Header extends Component {
           />
         <Toolbar>
           <ToolbarGroup firstChild={true}>
+            &nbsp;
             <Link 
               to="/">
               All
