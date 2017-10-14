@@ -5,22 +5,15 @@ import {Card, CardText} from 'material-ui/Card';
 class ViewPost extends Component {
 
   render() {
-    return (
-      <div>
-        {this.props.post && 
-          <Card className="post-detail">
-            <CardText>
-              {/* <p>{this.props.post.id}</p>
-              <p>{this.props.post.timestamp}</p> */}
-              <h2>{this.props.post.title}</h2>
-              <p>{this.props.post.body}</p>
-              <p>Author: {this.props.post.author}</p>
-              <p>Score: {this.props.post.voteScore}</p>
-            </CardText>
-          </Card>
-        }
-      </div>
-    )
+    return this.props.post && 
+      <Card className="post-detail">
+        <CardText>
+          <h2>{this.props.post.title}</h2>
+          <p>{this.props.post.body}</p>
+          <p>Author: {this.props.post.author}</p>
+          <p>Score: {this.props.post.voteScore}</p>
+        </CardText>
+      </Card>
   }
 }
 

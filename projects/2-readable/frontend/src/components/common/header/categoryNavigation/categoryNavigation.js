@@ -8,10 +8,9 @@ class CategoryNavigation extends Component {
       <span>
         {this.props.categories
           .map((category, index) => 
-            <span>
+            <span key={category.path}>
               <Link 
-                to={`/category/${category.path}`} 
-                key={category.path}>
+                to={`/category/${category.path}`}>
                 {category.name}
               </Link>
               &nbsp;

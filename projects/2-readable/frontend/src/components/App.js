@@ -7,6 +7,7 @@ import './App.css';
 
 /* 
   TODO:
+  * add redux
   * Control for changing the sort method for the list, including at minimum, order by voteScore and order by timestamp
   * Control for adding a new post
   * List of all posts ordered by vote score
@@ -59,23 +60,27 @@ class App extends Component {
         <Route 
           path="/category/:slug"
           render={({match}) => 
-            <ListPosts 
-              category={match.params.slug}
-              posts={this.state.posts}
-            />
+            <div>
+              <p>
+                {match.params.slug}
+              </p>
+              <ListPosts 
+                posts={this.state.posts}
+              />
+            </div>
           }
         />
         <Route 
           path="/post/:id"
           render={({match}) =>
             <ViewPost 
-              post={this.state.posts.filter(post => post.id === match.params.id)[0]}
+              post={this.state.posts.filter(post => post.id === match.params.id)[0]} 
             />
           }
         />
         <Route 
           path="/post/create/:id?"
-          render={() => <div>{'Create Post'}</div>}
+          render={() => <div>Create Post</div>}
         />
       </div>
     );
