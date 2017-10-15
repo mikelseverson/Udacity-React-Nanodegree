@@ -2,20 +2,25 @@ import registerServiceWorker from './registerServiceWorker'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { BrowserRouter } from 'react-router-dom'
 import thunk from 'redux-thunk';
-import rootReducer from './reducers'
+import reducer from './reducers'
 
 import './index.css'
 import App from './components/App'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const middleware = [thunk]
+
+const enhancer = composeEnhancers(
+    applyMiddleware(...middleware),
+  );
 
 const store = createStore(
-    rootReducer, 
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    reducer, enhancer
 )
 
 const Root = () => (

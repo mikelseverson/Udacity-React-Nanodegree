@@ -1,20 +1,27 @@
 
-export const CATEGORIES_FETCH = 'CATEGORIES_FETCH'
+export const CATEGORIES_IS_LOADING = 'CATEGORIES_IS_LOADING'
 export const CATEGORY_SET = 'CATEGORY_SET'
+export const CATEGORIES_RECEIVE = 'CATEGORIES_RECEIVE'
 
-export function categoriesFetch(data) {
-    return {
-        type: CATEGORIES_FETCH,
-        data
-    };
+const URL = `http://localhost:3001/categories`
+
+export const categoriesFetch = () => dispatch => {
+    dispatch(categoriesIsFetching(true))
+    return fetch(URL, { headers: { 'Authorization': 'authman' } })
+        .then(res => res.json())
+        .then(res => dispatch(categoriesReceive(res.categories)))
 }
 
-export function categorySet(category) {
-    return {
+export const categorySet = (category) => ({
         type: CATEGORY_SET,
         category
-    };
-}
+})
+
+export const categoriesReceive = (categories) => ({
+    type: CATEGORIES_RECEIVE,
+    categories
+})
+
 
 // For when thunks are implemented
 

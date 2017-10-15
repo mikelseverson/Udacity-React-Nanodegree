@@ -17,19 +17,19 @@ import { categoriesFetch, categorySet } from '../actions'
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   getCategories = () => {
-    let url = `http://localhost:3001/categories`;
+    let url = `http://localhost:3001/categories`
     return fetch(url, { headers: { 'Authorization': 'authman' } })
       .then(res => res.json())
       // .then(categories => store.dispatch(categoriesFetch(categories)))
   }
 
   getPosts = category => {
-    var url = `http://localhost:3001`;
-    url += category ? `/${category}/posts` : `/posts`;
+    var url = `http://localhost:3001`
+    url += category ? `/${category}/posts` : `/posts`
     return fetch(url, { headers: { 'Authorization': 'authman' } })
       .then(res => res.json())
       // .then(posts => store.dispatch(categoriesFetch(posts)))
@@ -38,8 +38,7 @@ class App extends Component {
   componentDidMount() {
     const { store } = this.props
     store.dispatch(categorySet('red'))
-
-    this.getCategories().then(categories => store.dispatch(categoriesFetch(categories)))
+    store.dispatch(categoriesFetch());
     this.getPosts();
   }
 
@@ -63,7 +62,7 @@ class App extends Component {
           render={({match}) => 
             <div>
               <p>
-                {match.params.slug}
+                {match.params.category}
               </p>
               <ListPosts 
                 posts={this.props.posts.data}
