@@ -7,7 +7,7 @@ import {
 
 const initalState = {
     isFetching: false,
-    posts: []
+    data: []
 }
 
 export function posts(state = initalState, action) {

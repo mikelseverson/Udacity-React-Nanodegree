@@ -2,10 +2,10 @@
 export const CATEGORIES_FETCH = 'CATEGORIES_FETCH'
 export const CATEGORY_SET = 'CATEGORY_SET'
 
-export function categoriesFetch(post) {
+export function categoriesFetch(data) {
     return {
         type: CATEGORIES_FETCH,
-        post
+        data
     };
 }
 

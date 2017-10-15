@@ -4,10 +4,12 @@ import Header from './common/header/header'
 import ListPosts from './common/listPosts/listPosts'
 import ViewPost from './viewPost/viewPost'
 import './App.css';
+import { connect } from 'react-redux';
+
+import { categoriesFetch, categorySet } from '../actions'
 
 /* 
   TODO:
-  * add redux
   * Control for changing the sort method for the list, including at minimum, order by voteScore and order by timestamp
   * Control for adding a new post
   * List of all posts ordered by vote score
@@ -16,17 +18,13 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      categories: [],
-      posts: []
-    }
   }
 
   getCategories = () => {
     let url = `http://localhost:3001/categories`;
     return fetch(url, { headers: { 'Authorization': 'authman' } })
       .then(res => res.json())
-      .then(data => this.setState(data));
+      // .then(categories => store.dispatch(categoriesFetch(categories)))
   }
 
   getPosts = category => {
@@ -34,11 +32,14 @@ class App extends Component {
     url += category ? `/${category}/posts` : `/posts`;
     return fetch(url, { headers: { 'Authorization': 'authman' } })
       .then(res => res.json())
-      .then(data => this.setState({posts: data}));
+      // .then(posts => store.dispatch(categoriesFetch(posts)))
   }
 
   componentDidMount() {
-    this.getCategories();
+    const { store } = this.props
+    store.dispatch(categorySet('red'))
+
+    this.getCategories().then(categories => store.dispatch(categoriesFetch(categories)))
     this.getPosts();
   }
 
@@ -46,39 +47,39 @@ class App extends Component {
     return (
       <div className="App">
         <Header
-          categories={this.state.categories}
+          categories={this.props.categories.data}
         />
         <Route 
           path="/"
           exact
           render={() => 
             <ListPosts 
-              posts={this.state.posts}
+              posts={this.props.posts.data}
             />
           }
         />
         <Route 
-          path="/category/:slug"
+          path="/:category"
           render={({match}) => 
             <div>
               <p>
                 {match.params.slug}
               </p>
               <ListPosts 
-                posts={this.state.posts}
+                posts={this.props.posts.data}
               />
             </div>
           }
         />
         <Route 
-          path="/post/:id"
+          path="/:category/:postId"
           render={({match}) =>
             <ViewPost 
-              post={this.state.posts.filter(post => post.id === match.params.id)[0]} 
+              post={this.props.posts.data.filter(post => post.id === match.params.postId)[0]}
             />
           }
         />
-        <Route 
+        <Route
           path="/post/create/:id?"
           render={() => <div>Create Post</div>}
         />
@@ -87,4 +88,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(state => state)(App)

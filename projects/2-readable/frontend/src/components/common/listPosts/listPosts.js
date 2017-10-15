@@ -7,20 +7,23 @@ class ListPosts extends Component {
   render() {
     return (
       <div>
-          {this.props.posts
-            .map(post => 
-              <Card key={post.id} className='post-card'>
-                <CardHeader
-                  title={post.title}
-                />
-                <CardActions>
-                  <Link
-                    to={`/post/${post.id}`}>
-                    View Post
-                  </Link>
-                </CardActions>
-              </Card>
-            )
+          {this.props.posts &&
+            this.props.posts
+              .map(post => 
+                <Card 
+                  key={post.id} 
+                  className='post-card'>
+                  <CardHeader
+                    title={post.title}
+                  />
+                  <CardActions>
+                    <Link
+                      to={post.id}>
+                      View Post
+                    </Link>
+                  </CardActions>
+                </Card>
+              )
           }
       </div>
     )

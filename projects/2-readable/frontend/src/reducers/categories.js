@@ -2,14 +2,12 @@ import {
     CATEGORIES_FETCH,
 } from '../actions'
 
-const iniitialState = {
+const initialState = {
     isFetching: false,
-    categories: [],
-    posts: [],
-    timestamp: '',
+    data: [],
 }
 
-export function categories(state = iniitialState, action) {
+export function categories(state = initialState, action) {
     switch (action.type) {
         case CATEGORIES_FETCH:
             return {...state}

@@ -8,7 +8,7 @@ import {
 
 const initalState = {
     isFetching: false,
-    comments: []
+    data: []
 }
 
 export function comments(state = initalState, action) {
