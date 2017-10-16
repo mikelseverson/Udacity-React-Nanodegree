@@ -20,15 +20,6 @@ class App extends Component {
     super(props)
   }
 
-
-  getPosts = category => {
-    var url = `http://localhost:3001`
-    url += category ? `/${category}/posts` : `/posts`
-    return fetch(url, { headers: { 'Authorization': 'authman' } })
-      .then(res => res.json())
-      // .then(posts => store.dispatch(categoriesFetch(posts)))
-  }
-
   componentDidMount() {
     const { store } = this.props
     store.dispatch(categoriesFetch());
