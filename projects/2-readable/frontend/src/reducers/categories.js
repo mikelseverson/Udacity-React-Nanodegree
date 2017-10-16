@@ -19,6 +19,7 @@ export function categories(state = initialState, action) {
         case CATEGORIES_RECEIVE:
             return {
                 ...state,
+                isFetching: false,
                 data: categories
             }
         default:

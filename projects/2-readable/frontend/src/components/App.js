@@ -46,14 +46,14 @@ class App extends Component {
     return (
       <div className="App">
         <Header
-          categories={this.props.categories.data}
+          categories={this.props.categories ? this.props.categories.data : []}
         />
         <Route 
           path="/"
           exact
           render={() => 
             <ListPosts 
-              posts={this.props.posts.data}
+              posts={this.props.posts ? this.props.posts.data : []}
             />
           }
         />
@@ -65,7 +65,7 @@ class App extends Component {
                 {match.params.category}
               </p>
               <ListPosts 
-                posts={this.props.posts.data}
+                posts={this.props.posts ? this.props.posts.data : []}
               />
             </div>
           }
@@ -74,7 +74,7 @@ class App extends Component {
           path="/:category/:postId"
           render={({match}) =>
             <ViewPost 
-              post={this.props.posts.data.filter(post => post.id === match.params.postId)[0]}
+              post={this.props.posts ? this.props.posts.data.filter(post => post.id === match.params.postId)[0] : {}}
             />
           }
         />
