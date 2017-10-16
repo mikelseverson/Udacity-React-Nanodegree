@@ -1,4 +1,4 @@
-import {fetchCategories} from '../util/readableAPI'
+import { fetchCategories } from '../util/readableAPI'
 
 export const CATEGORIES_IS_LOADING = 'CATEGORIES_IS_LOADING'
 export const CATEGORY_SET = 'CATEGORY_SET'

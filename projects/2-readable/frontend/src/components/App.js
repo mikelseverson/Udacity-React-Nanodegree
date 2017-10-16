@@ -6,7 +6,7 @@ import ViewPost from './viewPost/viewPost'
 import './App.css';
 import { connect } from 'react-redux';
 
-import { categoriesFetch, categorySet } from '../actions'
+import { categoriesFetch, categorySet, postsFetch } from '../actions'
 
 /* 
   TODO:
@@ -20,12 +20,6 @@ class App extends Component {
     super(props)
   }
 
-  getCategories = () => {
-    let url = `http://localhost:3001/categories`
-    return fetch(url, { headers: { 'Authorization': 'authman' } })
-      .then(res => res.json())
-      // .then(categories => store.dispatch(categoriesFetch(categories)))
-  }
 
   getPosts = category => {
     var url = `http://localhost:3001`
@@ -37,8 +31,8 @@ class App extends Component {
 
   componentDidMount() {
     const { store } = this.props
-    store.dispatch(categorySet('red'))
     store.dispatch(categoriesFetch());
+    store.dispatch(postsFetch());
     this.getPosts();
   }
 

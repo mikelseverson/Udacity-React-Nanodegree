@@ -1,56 +1,38 @@
+import { fetchPosts } from '../util/readableAPI'
+
+export const POSTS_IS_LOADING = 'POSTS_IS_LOADING'
+export const POSTS_RECEIVE = 'POSTS_RECEIVE'
 export const POST_ADD = 'POST_ADD'
-export const POSTS_FETCH = 'POSTS_FETCH'
 export const POST_EDIT = 'POST_EDIT'
-export const REMOVE_POST = 'REMOVE_POST'
 export const POST_REMOVE = 'POST_REMOVE'
 
-
-export function addPost(post) {
-    return {
-        type: POST_ADD,
-        post
-    }
+export const postsFetch = () => dispatch => {
+    dispatch(postsIsFetching(true))
+    return fetchPosts()
+        .then(posts => dispatch(postsReceive(posts)))
 }
 
-export function editPost(post) {
-    return {
-        type: POST_EDIT,
-        post
-    }
-}
+export const postsIsFetching = isFetching => ({
+    type: POSTS_IS_LOADING,
+    isFetching
+})
 
-export function removePost(post) {
-    return {
-        type: POST_REMOVE,
-        post
-    }
-}
+export const postsReceive = posts => ({
+    type: POSTS_RECEIVE,
+    posts
+})
 
-export function fetchPosts() {
-    return {
-        type: POSTS_FETCH,
-    }
-}
+export const addPost = post => ({
+    type: POST_ADD,
+    post
+})
 
-/* For when thunks are implemented */
+export const editPost = post => ({
+    type: POST_EDIT,
+    post
+})
 
-export function postsHasErrored(bool) {
-    return {
-        type: 'POSTS_HAS_ERRORED',
-        hasErrored: bool
-    };
-}
-
-export function postsIsFetching(bool) {
-    return {
-        type: 'POSTS_IS_LOADING',
-        isFetching: bool
-    };
-}
-
-export function postsFetchSuccess(items) {
-    return {
-        type: 'POSTS_FETCH_SUCCESS',
-        items
-    };
-}
+export const removePost = post => ({
+    type: POST_REMOVE,
+    post
+})
