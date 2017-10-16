@@ -10,7 +10,7 @@ class ListPosts extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.category !== this.props.category) {
-      this.props.postsFetch(this.props.category)
+      this.props.postsFetch(nextProps.category)
     }
   }
 
