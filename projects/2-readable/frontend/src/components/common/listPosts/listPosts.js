@@ -4,6 +4,16 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
 class ListPosts extends Component {
 
+  componentWillMount() {
+    this.props.postsFetch(this.props.category)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.category !== this.props.category) {
+      this.props.postsFetch(this.props.category)
+    }
+  }
+
   render() {
     return (
       <div>
@@ -18,7 +28,7 @@ class ListPosts extends Component {
                   />
                   <CardActions>
                     <Link
-                      to={post.id}>
+                      to={`/${post.category}/${post.id}`}>
                       View Post
                     </Link>
                   </CardActions>

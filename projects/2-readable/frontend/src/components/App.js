@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { Route, Link, Switch } from 'react-router'
+
 import Header from './common/header/header'
 import ListPosts from './common/listPosts/listPosts'
 import ViewPost from './viewPost/viewPost'
-import './App.css';
-import { connect } from 'react-redux';
 
-import { categoriesFetch, categorySet, postsFetch } from '../actions'
+import { categoriesFetch, postsFetch } from '../actions'
+
+import './App.css';
 
 /* 
   TODO:
@@ -21,10 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { store } = this.props
-    store.dispatch(categoriesFetch());
-    store.dispatch(postsFetch());
-    this.getPosts();
+    this.props.categoriesFetch()
   }
 
   render() {
@@ -33,43 +32,50 @@ class App extends Component {
         <Header
           categories={this.props.categories ? this.props.categories.data : []}
         />
-        <Route 
-          path="/"
-          exact
-          render={() => 
-            <ListPosts 
-              posts={this.props.posts ? this.props.posts.data : []}
-            />
-          }
-        />
-        <Route 
-          path="/:category"
-          render={({match}) => 
-            <div>
-              <p>
-                {match.params.category}
-              </p>
+        <Switch>
+          <Route 
+            path="/"
+            exact
+            render={() => 
               <ListPosts 
                 posts={this.props.posts ? this.props.posts.data : []}
+                postsFetch={this.props.postsFetch}
               />
-            </div>
-          }
-        />
-        <Route 
-          path="/:category/:postId"
-          render={({match}) =>
-            <ViewPost 
-              post={this.props.posts ? this.props.posts.data.filter(post => post.id === match.params.postId)[0] : {}}
-            />
-          }
-        />
-        <Route
-          path="/post/create/:id?"
-          render={() => <div>Create Post</div>}
-        />
+            }
+          />
+          <Route 
+            path="/:category/:postId"
+            render={({match}) =>
+              <ViewPost 
+                post={this.props.posts ? this.props.posts.data.filter(post => post.id === match.params.postId)[0] : null}
+              />
+            }
+          />
+          <Route 
+            path="/:category"
+            render={({match}) =>
+              <div>
+                <ListPosts 
+                  posts={this.props.posts ? this.props.posts.data : []}
+                  category={match.params.category}
+                  postsFetch={this.props.postsFetch}
+                />
+              </div>
+            }
+          />
+          <Route
+            path="/post/create/:id?"
+            render={() => <div>Create Post</div>}
+          />
+        </Switch>
       </div>
-    );
+    )
   }
 }
 
-export default connect(state => state)(App)
+const bindActionsToDispatch = dispatch => ({
+  categoriesFetch : () => {dispatch(categoriesFetch())},
+  postsFetch : (category) => {dispatch(postsFetch(category))}
+});
+
+export default connect(state => state, bindActionsToDispatch)(App)

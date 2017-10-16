@@ -6,9 +6,9 @@ export const POST_ADD = 'POST_ADD'
 export const POST_EDIT = 'POST_EDIT'
 export const POST_REMOVE = 'POST_REMOVE'
 
-export const postsFetch = () => dispatch => {
+export const postsFetch = category => dispatch => {
     dispatch(postsIsFetching(true))
-    return fetchPosts()
+    return fetchPosts(category)
         .then(posts => dispatch(postsReceive(posts)))
 }
 
