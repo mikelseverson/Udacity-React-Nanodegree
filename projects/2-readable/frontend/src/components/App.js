@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link, Switch } from 'react-router'
+import { withRouter } from 'react-router-dom'
 
 import Header from './common/header/header'
 import ListPosts from './common/listPosts/listPosts'
@@ -99,4 +100,4 @@ const bindActionsToDispatch = dispatch => ({
   commentsFetch : (post) => {dispatch(commentsFetch(post))}
 });
 
-export default connect(state => state, bindActionsToDispatch)(App)
+export default withRouter(connect(state => state, bindActionsToDispatch)(App))
