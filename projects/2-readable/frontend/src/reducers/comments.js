@@ -1,26 +1,27 @@
 import {
-    COMMENTS_FETCH,
-    COMMENT_ADD,
-    COMMENT_EDIT,
-    COMMENT_REMOVE,
-    COMMENT_VOTE,
+    COMMENTS_IS_LOADING,
+    COMMENTS_RECEIVE,
 } from '../actions'
 
-const initalState = {
+const initialState = {
     isFetching: false,
     data: []
 }
 
-export function comments(state = initalState, action) {
+export function comments(state = initialState, action) {
+    let {isFetching, comments} = action
     switch (action.type) {
-        case COMMENT_ADD:
-            return {...state}
-        case COMMENT_EDIT:
-            return {...state}
-        case COMMENT_REMOVE:
-            return {...state}
-        case COMMENT_VOTE:
-            return {...state}
+        case COMMENTS_IS_LOADING:
+            return {
+                ...state,
+                isFetching
+            }
+        case COMMENTS_RECEIVE:
+            return {
+                ...state,
+                isFetching: false,
+                data: comments
+            }
         default:
             return {...state}
     }

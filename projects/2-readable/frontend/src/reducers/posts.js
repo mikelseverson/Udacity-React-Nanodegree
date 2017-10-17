@@ -6,12 +6,12 @@ import {
     POST_REMOVE,
 } from '../actions';
 
-const initalState = {
+const initialState = {
     isFetching: false,
     data: []
 }
 
-export function posts(state = initalState, action) {
+export function posts(state = initialState, action) {
     let { isFetching, posts, post } = action
     switch (action.type) {
         case POSTS_IS_LOADING:

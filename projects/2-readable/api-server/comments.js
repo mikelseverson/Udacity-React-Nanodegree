@@ -46,7 +46,7 @@ function get (token, id) {
   return new Promise((res) => {
     const comments = getData(token)
     res(
-      comments[id].deleted || comments[id].parentDeleted
+      !comments[id] || comments[id].deleted || comments[id].parentDeleted
         ? {}
         : comments[id]
       )

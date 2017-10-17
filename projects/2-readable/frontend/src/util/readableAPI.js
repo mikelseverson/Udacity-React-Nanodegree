@@ -1,7 +1,9 @@
 const URL = `http://localhost:3001`
 const headers = { 'Authorization': 'authman' }
 
+////////////////
 /* Categories */
+////////////////
 
 export const fetchCategories = () => (
     fetch(`${URL}/categories`, { headers })
@@ -9,7 +11,9 @@ export const fetchCategories = () => (
         .then(res => res.categories)
 )
 
+///////////
 /* Posts */
+///////////
 
 /*
  GET /posts
@@ -80,7 +84,9 @@ export const deletePost = post => {
 
 }
 
+//////////////
 /* Comments */
+//////////////
 
 /*
  POST /comments
@@ -103,7 +109,8 @@ export const postComment = comment => {
   Get all the comments for a single post
 */
 export const fetchComments = post => {
-    return fetch(`${URL}/${post.id}/comments`, { headers })
+    return fetch(`${URL}/posts/${post.id}/comments`, { headers })
+        .then(res => res.json())
 }
 
 /*
