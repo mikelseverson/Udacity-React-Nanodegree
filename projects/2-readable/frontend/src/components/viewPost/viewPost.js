@@ -5,7 +5,18 @@ import {Card, CardText} from 'material-ui/Card';
 class ViewPost extends Component {
 
   componentWillMount() {
-    this.props.commentsFetch(this.props.post)
+    if(!this.props.post) {
+      this.props.postFetch(this.props.postId)
+      this.props.commentsFetch({id: this.props.postId})
+    } else {
+      this.props.commentsFetch(this.props.post)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.category !== this.props.category) {
+      this.props.postsFetch(nextProps.category)
+    }
   }
 
   render() {

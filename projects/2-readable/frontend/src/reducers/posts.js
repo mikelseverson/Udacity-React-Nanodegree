@@ -1,6 +1,8 @@
 import {
     POSTS_IS_LOADING,
     POSTS_RECEIVE,
+    POST_IS_LOADING,
+    POST_RECEIVE,
     POST_ADD,
     POST_EDIT,
     POST_REMOVE,
@@ -24,15 +26,15 @@ export function posts(state = initialState, action) {
                 ...state,
                 data: posts
             }
-        case POST_ADD:
+        case POST_IS_LOADING:
             return {
                 ...state,
-                // post
+                isFetching
             }
-        case POST_EDIT:
+        case POST_RECEIVE:
             return {
                 ...state,
-                // post
+                data: [post]
             }
         case POST_REMOVE:
             return {

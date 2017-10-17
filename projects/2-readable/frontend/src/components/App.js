@@ -7,7 +7,7 @@ import Header from './common/header/header'
 import ListPosts from './common/listPosts/listPosts'
 import ViewPost from './viewPost/viewPost'
 
-import { categoriesFetch, postsFetch, commentsFetch } from '../actions'
+import { categoriesFetch, postsFetch, postFetch, commentsFetch } from '../actions'
 
 import './App.css';
 
@@ -67,8 +67,10 @@ class App extends Component {
             render={({match}) =>
               <ViewPost 
                 post={this.props.posts ? this.props.posts.data.filter(post => post.id === match.params.postId)[0] : null}
+                postId={match.params.postId}
                 comments={this.props.comments ? this.props.comments.data : []}
                 commentsFetch={this.props.commentsFetch}
+                postFetch={this.props.postFetch}
               />
             }
           />
@@ -97,6 +99,7 @@ class App extends Component {
 const bindActionsToDispatch = dispatch => ({
   categoriesFetch : () => {dispatch(categoriesFetch())},
   postsFetch : (category) => {dispatch(postsFetch(category))},
+  postFetch : (postId) => {dispatch(postFetch(postId))},
   commentsFetch : (post) => {dispatch(commentsFetch(post))}
 });
 

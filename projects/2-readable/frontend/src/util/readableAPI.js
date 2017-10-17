@@ -30,8 +30,8 @@ export const fetchPosts = category => {
   USAGE:
   Get the details of a single post
 */
-export const fetchPost = post => {
-    return fetch(`${URL}/posts/${post.id}`, { headers })
+export const fetchPost = postId => {
+    return fetch(`${URL}/posts/${postId}`, { headers })
         .then(res => res.json())
 };
 
