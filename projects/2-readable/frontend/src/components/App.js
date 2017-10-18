@@ -15,26 +15,27 @@ import './App.css';
 
 /*
   ***TODO***
+  POST LIST
+  * Listed posts are displayed with title, author, number of comments, current score, 
+    and a voting mechanism to upvote or downvote the post. 
+  * Application has a form for creating a new post. 
+    Submitting the form properly adds the post to the correct category.
+
+  POST DETAILS
+  * Posts should have buttons or links for editing or deleting that post.
+    Clicking the button/link correctly removes the post/comment from list view and makes post inaccessible at it's URL.
 
   COMMENTS
   * A mechanism for adding a new comment is visible on the detail page and functional.
   * Listed comments are displayed with author, current score, and a voting mechanism to upvote or downvote the comment. 
   * Comments should have buttons or links for editing or deleting that comment.
-
-  POSTS
-  * List pages (root or category) include a mechanism for sorting by date or by score (at a minimum) and the sort works properly.
-  * Application has a form for creating a new post. 
-    Submitting the form properly adds the post to the correct category.
-  * Listed posts are displayed with title, author, number of comments, current score, 
-    and a voting mechanism to upvote or downvote the post. 
-  * Posts should have buttons or links for editing or deleting that post.
+  * A mechanism for deleting comments exists. 
+    Clicking the button/link correctly removes the post/comment from list view and makes post inaccessible at it's URL.
 
   COMMENTS / POSTS
   * The voting mechanism works and correctly displays the new vote score after clicking for both the post and comments.
   * Edit buttons for posts/comments open a form with existing data pre-populated. 
     Submitting the form correctly updates the data for the comment/post.
-  * A mechanism for deleting posts and comments exists. 
-  * Clicking the button/link correctly removes the post/comment from list view and makes post inaccessible at it's URL.
 */
 
 class App extends Component {
