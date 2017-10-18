@@ -7,6 +7,7 @@ export const POST_RECEIVE = 'POST_RECEIVE'
 export const POST_ADD = 'POST_ADD'
 export const POST_EDIT = 'POST_EDIT'
 export const POST_REMOVE = 'POST_REMOVE'
+export const POSTS_SORT = 'POSTS_SORT'
 
 export const postsFetch = category => dispatch => {
     dispatch(postsIsFetching(true))
@@ -38,6 +39,11 @@ export const postIsFetching = isFetching => ({
 export const postsReceive = posts => ({
     type: POSTS_RECEIVE,
     posts
+})
+
+export const postsSort = sort => ({
+    type: POSTS_SORT,
+    sort
 })
 
 export const addPost = post => ({

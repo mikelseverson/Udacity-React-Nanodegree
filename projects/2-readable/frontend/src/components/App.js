@@ -7,7 +7,9 @@ import Header from './common/header/header'
 import ListPosts from './common/listPosts/listPosts'
 import ViewPost from './viewPost/viewPost'
 
-import { categoriesFetch, postsFetch, postFetch, commentsFetch } from '../actions'
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+
+import { categoriesFetch, postsFetch, postFetch, commentsFetch, postsSort } from '../actions'
 
 import './App.css';
 
@@ -49,13 +51,15 @@ class App extends Component {
       <div className="App">
         <Header
           categories={this.props.categories ? this.props.categories.data : []}
+          postsSort={this.props.postsSort}
+          sort={this.props.posts.sort}
         />
         <Switch>
           <Route 
             path="/"
             exact
             render={() => 
-              <ListPosts 
+            <ListPosts 
                 posts={this.props.posts ? this.props.posts.data : []}
                 postsFetch={this.props.postsFetch}
               />
@@ -99,7 +103,8 @@ const bindActionsToDispatch = dispatch => ({
   categoriesFetch : () => {dispatch(categoriesFetch())},
   postsFetch : (category) => {dispatch(postsFetch(category))},
   postFetch : (postId) => {dispatch(postFetch(postId))},
-  commentsFetch : (post) => {dispatch(commentsFetch(post))}
+  postsSort : (sort) => {dispatch(postsSort(sort))},
+  commentsFetch : (post) => {dispatch(commentsFetch(post))},
 });
 
 export default withRouter(connect(state => state, bindActionsToDispatch)(App))
