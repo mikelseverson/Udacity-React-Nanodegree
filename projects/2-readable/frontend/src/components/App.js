@@ -6,12 +6,15 @@ import { withRouter } from 'react-router-dom'
 import Header from './common/header/header'
 import ListPosts from './common/listPosts/listPosts'
 import ViewPost from './viewPost/viewPost'
+import PostForm from './postForm/postForm'
 
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import Dialog from 'material-ui/Dialog'
+
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
 
 import { categoriesFetch, postsFetch, postFetch, commentsFetch, postsSort } from '../actions'
 
-import './App.css';
+import './App.css'
 
 /*
   ***TODO***
@@ -46,7 +49,7 @@ class App extends Component {
   componentDidMount() {
     this.props.categoriesFetch()
   }
-
+  
   render() {
     return (
       <div className="App">
@@ -55,6 +58,13 @@ class App extends Component {
           postsSort={this.props.postsSort}
           sort={this.props.posts.sort}
         />
+        {/* <PostForm
+          open={this.props.editPost ? this.props.editPost.editing : false}
+          post={}
+          onRequestClose={this.props.postSubmit}
+          categories={this.props.categories}>
+        </PostForm> */}
+        {/* <CommentForm></CommentForm> */}
         <Switch>
           <Route 
             path="/"

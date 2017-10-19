@@ -8,11 +8,21 @@ export const POST_ADD = 'POST_ADD'
 export const POST_EDIT = 'POST_EDIT'
 export const POST_REMOVE = 'POST_REMOVE'
 export const POSTS_SORT = 'POSTS_SORT'
+export const POST_CREATE = 'POST_CREATE'
 
 export const postsFetch = category => dispatch => {
     dispatch(postsIsFetching(true))
     return fetchPosts(category)
         .then(posts => dispatch(postsReceive(posts)))
+}
+
+export const postSubmit = post => dispatch => {
+    // dispatch(postIsSubmitting(true))
+
+    // logic to dictate whether post is submitted new or not?
+
+    // return submitPost(post)
+    //     .then()
 }
 
 export const postFetch = postId => dispatch => {
@@ -44,16 +54,6 @@ export const postsReceive = posts => ({
 export const postsSort = sort => ({
     type: POSTS_SORT,
     sort
-})
-
-export const addPost = post => ({
-    type: POST_ADD,
-    post
-})
-
-export const editPost = post => ({
-    type: POST_EDIT,
-    post
 })
 
 export const removePost = post => ({
