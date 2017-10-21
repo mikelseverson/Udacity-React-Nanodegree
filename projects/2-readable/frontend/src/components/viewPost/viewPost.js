@@ -32,13 +32,13 @@ class ViewPost extends Component {
           </Card>
         }
         {this.props.comments ? this.props.comments.map(comment => {
-          return <Card>
-            <CardText>
-              <p>Author {comment.author}</p>
-              <p>{comment.body}</p>
-              <p>score: {comment.voteScore}</p>
-            </CardText>
-          </Card>
+            <Card>
+              <CardText>
+                <p>Author {comment.author}</p>
+                <p>{comment.body}</p>
+                <p>score: {comment.voteScore}</p>
+              </CardText>
+            </Card>
         }) : 'No comments'}
     </div>
   }

@@ -10,6 +10,17 @@
   margin: 30px auto;
   width: 85%;
 }
+
+.create-post-btn {
+  position:absolute;
+  bottom:0;
+}
+
+.post-list-wrapper {
+  position: relative;
+  padding-bottom: 50px;
+}
+
 .post-detail {
     margin: 10px auto;
     width: 87.25%;

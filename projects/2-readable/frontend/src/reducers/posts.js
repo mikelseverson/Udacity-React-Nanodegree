@@ -4,10 +4,15 @@ import {
     POST_IS_LOADING,
     POST_RECEIVE,
     POSTS_SORT,
-    POST_ADD,
-    POST_EDIT,
     POST_REMOVE,
-} from '../actions';
+} from '../actions'
+
+import {
+    POST_FORM_CREATE,
+    POST_FORM_EDIT,
+    POST_FORM_SUBMITTED,
+    POST_FORM_CLOSE
+} from '../actions'
 
 const initialState = {
     isFetching: false,
@@ -57,6 +62,32 @@ export function posts(state = initialState, action) {
                 sort
                 }
         default:
-            return state
+            return {...state}
+    }
+}
+
+export function postForm(state = {}, action) {
+    let {post} = action
+    switch(action.type) {
+        case POST_FORM_CREATE:
+            return {
+                isEditing: true
+            }
+        case POST_FORM_EDIT:
+            return {
+                ...post,
+                isEditing: true,
+            }
+        case POST_FORM_SUBMITTED:
+            return {
+                isEditing: true
+            }
+        case POST_FORM_CLOSE:
+            return {
+                ...state,
+                isEditing: false,
+            }
+        default:
+            return {...state}
     }
 }

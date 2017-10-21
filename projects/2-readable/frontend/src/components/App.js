@@ -8,37 +8,45 @@ import ListPosts from './common/listPosts/listPosts'
 import ViewPost from './viewPost/viewPost'
 import PostForm from './postForm/postForm'
 
-import Dialog from 'material-ui/Dialog'
+import {
+  Toolbar,
+  ToolbarGroup,
+  ToolbarSeparator,
+  ToolbarTitle
+} from 'material-ui/Toolbar'
 
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
-
-import { categoriesFetch, postsFetch, postFetch, commentsFetch, postsSort } from '../actions'
+import { 
+  categoriesFetch,
+  postsFetch,
+  postFetch,
+  commentsFetch,
+  postsSort,
+  postFormCreate,
+  postFormClose,
+} from '../actions'
 
 import './App.css'
 
-/*
-  ***TODO***
+/***TODO***
+
   POST LIST
-  * Listed posts are displayed with title, author, number of comments, current score, 
-    and a voting mechanism to upvote or downvote the post. 
-  * Application has a form for creating a new post. 
-    Submitting the form properly adds the post to the correct category.
+    * Listed posts are displayed with title, author, number of comments, current score, and a voting mechanism to upvote or downvote the post. 
+    * Application has a form for creating a new post. Submitting the form properly adds the post to the correct category.
 
   POST DETAILS
-  * Posts should have buttons or links for editing or deleting that post.
-    Clicking the button/link correctly removes the post/comment from list view and makes post inaccessible at it's URL.
+    * Posts should have buttons or links for editing or deleting that post.
+      Clicking the button/link correctly removes the post/comment from list view and makes post inaccessible at it's URL.
 
   COMMENTS
-  * A mechanism for adding a new comment is visible on the detail page and functional.
-  * Listed comments are displayed with author, current score, and a voting mechanism to upvote or downvote the comment. 
-  * Comments should have buttons or links for editing or deleting that comment.
-  * A mechanism for deleting comments exists. 
-    Clicking the button/link correctly removes the post/comment from list view and makes post inaccessible at it's URL.
+    * A mechanism for adding a new comment is visible on the detail page and functional.
+    * Listed comments are displayed with author, current score, and a voting mechanism to upvote or downvote the comment. 
+    * Comments should have buttons or links for editing or deleting that comment.
+    * A mechanism for deleting comments exists. 
+      Clicking the button/link correctly removes the post/comment from list view and makes post inaccessible at it's URL.
 
   COMMENTS / POSTS
-  * The voting mechanism works and correctly displays the new vote score after clicking for both the post and comments.
-  * Edit buttons for posts/comments open a form with existing data pre-populated. 
-    Submitting the form correctly updates the data for the comment/post.
+    * The voting mechanism works and correctly displays the new vote score after clicking for both the post and comments.
+    * Edit buttons for posts/comments open a form with existing data pre-populated. Submitting the form correctly updates the data for the comment/post.
 */
 
 class App extends Component {
@@ -49,22 +57,26 @@ class App extends Component {
   componentDidMount() {
     this.props.categoriesFetch()
   }
-  
+
   render() {
     return (
       <div className="App">
         <Header
-          categories={this.props.categories ? this.props.categories.data : []}
+          categories={this.props.categories.data}
           postsSort={this.props.postsSort}
           sort={this.props.posts.sort}
         />
-        {/* <PostForm
-          open={this.props.editPost ? this.props.editPost.editing : false}
-          post={}
-          onRequestClose={this.props.postSubmit}
-          categories={this.props.categories}>
-        </PostForm> */}
-        {/* <CommentForm></CommentForm> */}
+        <PostForm
+          open={this.props.postForm.isEditing}
+          post={this.props.postForm}
+          categories={this.props.categories}
+          postFormClose={this.props.postFormClose}>
+        </PostForm>
+        {/* <CommentForm
+          open={this.props.editComment.editing}
+          comment={this.props.editComment}
+          onRequestClose={this.props.commentSubmit}>
+        </CommentForm> */}
         <Switch>
           <Route 
             path="/"
@@ -73,6 +85,7 @@ class App extends Component {
             <ListPosts 
                 posts={this.props.posts ? this.props.posts.data : []}
                 postsFetch={this.props.postsFetch}
+                createPost={this.props.postFormCreate}
               />
             }
           />
@@ -96,6 +109,7 @@ class App extends Component {
                   posts={this.props.posts ? this.props.posts.data : []}
                   category={match.params.category}
                   postsFetch={this.props.postsFetch}
+                  createPost={this.props.postFormCreate}
                 />
               </div>
             }
@@ -116,6 +130,10 @@ const bindActionsToDispatch = dispatch => ({
   postFetch : (postId) => {dispatch(postFetch(postId))},
   postsSort : (sort) => {dispatch(postsSort(sort))},
   commentsFetch : (post) => {dispatch(commentsFetch(post))},
-});
+  postFormCreate : () => {dispatch(postFormCreate())},
+  postFormClose : () => {dispatch(postFormClose())}
+})
 
-export default withRouter(connect(state => state, bindActionsToDispatch)(App))
+export default withRouter(
+  connect(state => state, bindActionsToDispatch)(App)
+)

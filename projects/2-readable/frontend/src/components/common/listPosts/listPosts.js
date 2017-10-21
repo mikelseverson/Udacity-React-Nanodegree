@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class ListPosts extends Component {
 
@@ -16,7 +17,8 @@ class ListPosts extends Component {
 
   render() {
     return (
-      <div>
+      <div className='post-list-wrapper'>
+        <div className='post-list'>
           {this.props.posts &&
             this.props.posts
               .map(post => 
@@ -35,6 +37,14 @@ class ListPosts extends Component {
                 </Card>
               )
           }
+        </div>
+        <RaisedButton
+          className="create-post-btn"
+          label="CREATE POST"
+          onClick={this.props.createPost}
+          fullWidth={true}
+          primary={true}
+        />
       </div>
     )
   }
