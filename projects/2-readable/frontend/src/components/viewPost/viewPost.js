@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import {Card, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 class ViewPost extends Component {
 
@@ -20,8 +21,17 @@ class ViewPost extends Component {
   }
 
   render() {
-    return <div>
-        {this.props.post && 
+    var postCard;
+    if(this.props.post) {
+      if(this.props.post.deleted) {
+        postCard = (
+          <Card>
+            <CardText>
+              <h2>Sorry, this post has been deleted.</h2>
+            </CardText>
+          </Card>)
+      } else {
+        postCard = (
           <Card className="post-detail">
             <CardText>
               <h2>{this.props.post.title}</h2>
@@ -29,10 +39,23 @@ class ViewPost extends Component {
               <p>Author: {this.props.post.author}</p>
               <p>Score: {this.props.post.voteScore}</p>
             </CardText>
+            <CardActions>
+              <FlatButton label="Edit" onClick={() => this.props.editPost(this.props.post)}/>
+              <FlatButton label="Remove" onClick={() => this.props.deletePost(this.props.post)}/>
+            </CardActions>
           </Card>
-        }
+        )
+      }
+    } else {
+      postCard = <Card><CardText><h2>Post not found</h2></CardText></Card>
+    }
+
+    return <div>
+        
+        {postCard}
+        
         {this.props.comments ? this.props.comments.map(comment => {
-            <Card>
+            return <Card>
               <CardText>
                 <p>Author {comment.author}</p>
                 <p>{comment.body}</p>

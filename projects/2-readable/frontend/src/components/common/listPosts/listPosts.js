@@ -41,7 +41,7 @@ class ListPosts extends Component {
         <RaisedButton
           className="create-post-btn"
           label="CREATE POST"
-          onClick={this.props.createPost}
+          onClick={() => this.props.createPost()}
           fullWidth={true}
           primary={true}
         />

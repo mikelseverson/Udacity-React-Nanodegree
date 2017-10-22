@@ -8,53 +8,40 @@ import {
   TextField
 } from 'material-ui'
 
-class PostForm extends Component {
+class CommentForm extends Component {
   handleCategoryChange = (e, key, category) => {
     this.props.postFormChange({
-      ...this.props.postData.post,
       category
     })
   }
 
   handleAuthorChange = (e, author) => {
     this.props.postFormChange({
-      ...this.props.postData.post,
       author
     })
   }
 
   handleTitleChange = (e, title) => {
     this.props.postFormChange({
-      ...this.props.postData.post,
       title
     })
   }
 
   handleBodyChange = (e, body) => {
     this.props.postFormChange({
-      ...this.props.postData.post,
       body
     })
   }
 
   handleSubmit = () => {
     let {category, author, body, title, id} = this.props.postData.post
-    let {newPost} = this.props.postData
-    let postData = newPost ? 
-      {
-        category,
-        author,
-        body,
-        title,
-        id
-      } : 
-      {
-        title,
-        body,
-        id
-      }
-    console.log(postData, newPost);
-    this.props.postFormSubmit(postData, newPost)
+    this.props.postFormSubmit({
+      category: category.name,
+      author,
+      body,
+      title,
+      id
+    })
   }
 
   render() {

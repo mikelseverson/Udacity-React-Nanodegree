@@ -21,9 +21,11 @@ import {
   postFetch,
   commentsFetch,
   postsSort,
-  postFormCreate,
+  postFormOpen,
   postFormClose,
-  postFormSubmit
+  postFormEdit,
+  postFormSubmit,
+  postDelete
 } from '../actions'
 
 import './App.css'
@@ -32,10 +34,9 @@ import './App.css'
 
   POST LIST
     * Listed posts are displayed with title, author, number of comments, current score, and a voting mechanism to upvote or downvote the post. 
-    * Application has a form for creating a new post. Submitting the form properly adds the post to the correct category.
 
   POST DETAILS
-    * Posts should have buttons or links for editing or deleting that post.
+    * Posts should have button for deleting that post.
       Clicking the button/link correctly removes the post/comment from list view and makes post inaccessible at it's URL.
 
   COMMENTS
@@ -69,16 +70,19 @@ class App extends Component {
         />
         <PostForm
           open={this.props.postForm.isEditing}
-          post={this.props.postForm}
+          postData={this.props.postForm}
           categories={this.props.categories.data}
+          postFormChange={this.props.postFormEdit}
           postFormClose={this.props.postFormClose}
-          postFormSubmit={this.props.postFormSubmit}>
-        </PostForm>
+          postFormSubmit={this.props.postFormSubmit}
+        />
         {/* <CommentForm
-          open={this.props.editComment.editing}
-          comment={this.props.editComment}
-          onRequestClose={this.props.commentSubmit}>
-        </CommentForm> */}
+          open={this.props.commentForm}
+          commentData={this.props.commentForm}
+          commentFormChange={this.props.commentFormEdit}
+          commentFormClose={this.props.commentFormClose}
+          commentFormSubmit={this.props.commentFormSubmit}
+        /> */}
         <Switch>
           <Route 
             path="/"
@@ -87,7 +91,7 @@ class App extends Component {
             <ListPosts 
                 posts={this.props.posts ? this.props.posts.data : []}
                 postsFetch={this.props.postsFetch}
-                createPost={this.props.postFormCreate}
+                createPost={this.props.postFormOpen}
               />
             }
           />
@@ -100,6 +104,8 @@ class App extends Component {
                 comments={this.props.comments ? this.props.comments.data : []}
                 commentsFetch={this.props.commentsFetch}
                 postFetch={this.props.postFetch}
+                editPost={this.props.postFormOpen}
+                deletePost={this.props.deletePost}
               />
             }
           />
@@ -111,14 +117,10 @@ class App extends Component {
                   posts={this.props.posts ? this.props.posts.data : []}
                   category={match.params.category}
                   postsFetch={this.props.postsFetch}
-                  createPost={this.props.postFormCreate}
+                  createPost={this.props.postFormOpen}
                 />
               </div>
             }
-          />
-          <Route
-            path="/post/create/:id?"
-            render={() => <div>Create Post</div>}
           />
         </Switch>
       </div>
@@ -132,9 +134,11 @@ const bindActionsToDispatch = dispatch => ({
   postFetch : (postId) => {dispatch(postFetch(postId))},
   postsSort : (sort) => {dispatch(postsSort(sort))},
   commentsFetch : (post) => {dispatch(commentsFetch(post))},
-  postFormCreate : () => {dispatch(postFormCreate())},
+  postFormOpen : post => {dispatch(postFormOpen(post))},
   postFormClose : () => {dispatch(postFormClose())},
-  postFormSubmit : post => {dispatch(postFormSubmit(post))},
+  postFormSubmit : (post, newPost) => {dispatch(postFormSubmit(post, newPost))},
+  postFormEdit : postChanges => {dispatch(postFormEdit(postChanges))},
+  deletePost: post => {dispatch(postDelete(post))}
 })
 
 export default withRouter(

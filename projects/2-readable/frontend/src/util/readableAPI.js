@@ -44,15 +44,17 @@ export const fetchPost = postId => {
  USAGE:
   Add a new post
  PARAMS:
-  id - UUID should be fine, but any unique id will work
-  timestamp - timestamp in whatever format you like, you can use Date.now() if you like
-  title - String
-  body - String
-  author - String
-  category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
+  post
+    id - UUID should be fine, but any unique id will work
+    timestamp - timestamp in whatever format you like, you can use Date.now() if you like
+    title - String
+    body - String
+    author - String
+    category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
 */
 export const addPost = post => {
-    return fetch(`${URL}/posts`, { headers, method: 'POST', body: JSON.stringify(post)})
+    return fetch(`${URL}/posts`, { headers, method: 'POST', body: JSON.stringify({...post, timestamp: Date.now()})})
+        .then(res => res.json())
 }
 
 /* 
@@ -60,11 +62,14 @@ export const addPost = post => {
  USAGE:
    Edit the details of an existing post
  PARAMS:
-   title - String
- body - String
+  post 
+    title - String
+    body - String
 */
 export const editPost = post => {
-    return fetch(`${URL}/posts/${post.id}`, { headers })
+    let {title, body} = post
+    return fetch(`${URL}/posts/${post.id}`, { headers, method: 'PUT', body: JSON.stringify({title, body}) })
+        .then(res => res.json())
 }
 
 /*
@@ -72,10 +77,12 @@ export const editPost = post => {
  USAGE:
   Used for voting on a post
  PARAMS:
+  post
+    id - post id
   option - String: Either "upVote" or "downVote"
 */
-export const votePost = post => {
-    return fetch()
+export const votePost = (post, option) => {
+    return fetch(`${URL}/posts/${post.id}`, {headers, method: 'POST', body: JSON.stringify({option})})
 }
 
 /*
@@ -85,6 +92,8 @@ export const votePost = post => {
   Sets the parentDeleted flag for all child comments to 'true'.
 */
 export const deletePost = post => {
+    return fetch(`${URL}/posts/${post.id}`, {headers, method: 'DELETE'})
+        .then(res => res.json())
 
 }
 
