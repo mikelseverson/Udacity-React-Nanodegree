@@ -1,5 +1,9 @@
 const URL = `http://localhost:3001`
-const headers = { 'Authorization': 'authman' }
+const headers = { 
+    'Authorization': 'authman',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+ }
 
 ////////////////
 /* Categories */
@@ -48,7 +52,7 @@ export const fetchPost = postId => {
   category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
 */
 export const addPost = post => {
-    return fetch(`${URL}/posts`, { headers })
+    return fetch(`${URL}/posts`, { headers, method: 'POST', body: JSON.stringify(post)})
 }
 
 /* 

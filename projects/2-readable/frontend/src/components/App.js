@@ -23,6 +23,7 @@ import {
   postsSort,
   postFormCreate,
   postFormClose,
+  postFormSubmit
 } from '../actions'
 
 import './App.css'
@@ -69,8 +70,9 @@ class App extends Component {
         <PostForm
           open={this.props.postForm.isEditing}
           post={this.props.postForm}
-          categories={this.props.categories}
-          postFormClose={this.props.postFormClose}>
+          categories={this.props.categories.data}
+          postFormClose={this.props.postFormClose}
+          postFormSubmit={this.props.postFormSubmit}>
         </PostForm>
         {/* <CommentForm
           open={this.props.editComment.editing}
@@ -131,7 +133,8 @@ const bindActionsToDispatch = dispatch => ({
   postsSort : (sort) => {dispatch(postsSort(sort))},
   commentsFetch : (post) => {dispatch(commentsFetch(post))},
   postFormCreate : () => {dispatch(postFormCreate())},
-  postFormClose : () => {dispatch(postFormClose())}
+  postFormClose : () => {dispatch(postFormClose())},
+  postFormSubmit : post => {dispatch(postFormSubmit(post))},
 })
 
 export default withRouter(

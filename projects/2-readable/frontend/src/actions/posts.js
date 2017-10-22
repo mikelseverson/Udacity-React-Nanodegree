@@ -1,4 +1,4 @@
-import { fetchPosts, fetchPost } from '../util/readableAPI'
+import { fetchPosts, fetchPost, addPost } from '../util/readableAPI'
 
 export const POSTS_IS_LOADING = 'POSTS_IS_LOADING'
 export const POST_IS_LOADING = 'POST_IS_LOADING'
@@ -11,6 +11,7 @@ export const POST_FORM_CREATE = 'POST_FORM_CREATE'
 export const POST_FORM_EDIT = 'POST_FORM_EDIT'
 export const POST_FORM_SUBMITTED = 'POST_FORM_SUBMITTED'
 export const POST_FORM_CLOSE = 'POST_FORM_CLOSE'
+export const POST_FORM_SUBMITTING = 'POST_FORM_SUBMITTING'
 
 export const postsFetch = category => dispatch => {
     dispatch(postsIsFetching(true))
@@ -18,13 +19,9 @@ export const postsFetch = category => dispatch => {
         .then(posts => dispatch(postsReceive(posts)))
 }
 
-export const postSubmit = post => dispatch => {
-    // dispatch(postIsSubmitting(true))
-
-    // logic to dictate whether post is submitted new or not?
-
-    // return submitPost(post)
-    //     .then()
+export const postFormSubmit = post => dispatch => {
+    dispatch(postFormSubmitting(true))
+    return addPost(post);
 }
 
 export const postFetch = postId => dispatch => {
@@ -54,6 +51,11 @@ export const postsIsFetching = isFetching => ({
 export const postReceive = post => ({
     type: POST_RECEIVE,
     post
+})
+
+export const postFormSubmitting = isSubmitting => ({
+    type: POST_FORM_SUBMITTING,
+    isSubmitting
 })
 
 export const postIsFetching = isFetching => ({
