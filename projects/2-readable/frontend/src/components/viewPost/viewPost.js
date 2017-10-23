@@ -55,7 +55,7 @@ class ViewPost extends Component {
     return <div>
         {postCard}
         {this.props.comments ? this.props.comments.map(comment => {
-            return !comment.deleted && <Card key={comment.id}>
+            return !comment.deleted && this.props.post && !this.props.post.deleted && <Card key={comment.id}>
               <CardText>
                 <p>{comment.body}</p>
                 <p>Author: {comment.author}</p>

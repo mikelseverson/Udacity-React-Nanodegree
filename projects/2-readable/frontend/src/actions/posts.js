@@ -39,20 +39,14 @@ export const postVote = (post, option) => dispatch => {
         .then(data => console.log(data))
 }
 
-
-export const postIsDeleting = isDeleting => ({
-    type: POST_IS_DELETING,
-    isDeleting
-})
-
-export const postDeleted = post => ({
-    type: POST_DELETED,
-    post
-})
-
 export const postsIsFetching = isFetching => ({
     type: POSTS_IS_LOADING,
     isFetching
+})
+
+export const postsReceive = posts => ({
+    type: POSTS_RECEIVE,
+    posts
 })
 
 export const postReceive = post => ({
@@ -70,9 +64,14 @@ export const postIsFetching = isFetching => ({
     isFetching
 })
 
-export const postsReceive = posts => ({
-    type: POSTS_RECEIVE,
-    posts
+export const postIsDeleting = isDeleting => ({
+    type: POST_IS_DELETING,
+    isDeleting
+})
+
+export const postDeleted = post => ({
+    type: POST_DELETED,
+    post
 })
 
 export const postsSort = sort => ({

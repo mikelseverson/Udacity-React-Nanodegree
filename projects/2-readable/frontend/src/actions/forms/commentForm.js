@@ -9,7 +9,7 @@ export const COMMENT_FORM_CLOSE = 'COMMENT_FORM_CLOSE'
 export const COMMENT_FORM_SUCCESS = 'COMMENT_FORM_SUCCESS'
 
 export const commentFormSubmit = (comment, isNewComment) => dispatch => {
-    return isNewComment ? postComment(comment) : editComment(comment)
+    return (isNewComment ? postComment(comment) : editComment(comment))
         .then(comment => dispatch(commentFormSuccess(comment, isNewComment)))
 }
 

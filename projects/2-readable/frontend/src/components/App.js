@@ -30,13 +30,10 @@ import {
 import './App.css'
 
 /***TODO***
-
   POST LIST
     * Listed posts are displayed with number of comments, current score, and a voting mechanism to upvote or downvote the post. 
-
   COMMENTS
     * Listed comments are displayed with a voting mechanism to upvote or downvote the comment. 
-
   COMMENTS / POSTS
     * The voting mechanism works and correctly displays the new vote score after clicking for both the post and comments.
 */
