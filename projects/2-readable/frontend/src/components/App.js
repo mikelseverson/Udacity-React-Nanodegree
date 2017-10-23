@@ -32,22 +32,13 @@ import './App.css'
 /***TODO***
 
   POST LIST
-    * Listed posts are displayed with title, author, number of comments, current score, and a voting mechanism to upvote or downvote the post. 
-
-  POST DETAILS
-    * Posts should have button for deleting that post.
-      Clicking the button/link correctly removes the post/comment from list view and makes post inaccessible at it's URL.
+    * Listed posts are displayed with number of comments, current score, and a voting mechanism to upvote or downvote the post. 
 
   COMMENTS
-    * A mechanism for adding a new comment is visible on the detail page and functional.
-    * Listed comments are displayed with author, current score, and a voting mechanism to upvote or downvote the comment. 
-    * Comments should have buttons or links for editing or deleting that comment.
-    * A mechanism for deleting comments exists. 
-      Clicking the button/link correctly removes the post/comment from list view and makes post inaccessible at it's URL.
+    * Listed comments are displayed with a voting mechanism to upvote or downvote the comment. 
 
   COMMENTS / POSTS
     * The voting mechanism works and correctly displays the new vote score after clicking for both the post and comments.
-    * Edit buttons for posts/comments open a form with existing data pre-populated. Submitting the form correctly updates the data for the comment/post.
 */
 
 class App extends Component {
