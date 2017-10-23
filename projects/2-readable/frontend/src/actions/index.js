@@ -1,3 +1,5 @@
 export * from './categories'
 export * from './comments'
 export * from './posts'
+export * from './forms/commentForm'
+export * from './forms/postForm'

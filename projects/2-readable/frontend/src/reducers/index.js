@@ -2,8 +2,11 @@ import { combineReducers } from 'redux'
 
 /* Reducers */
 import { categories } from './categories'
-import { posts, postForm } from './posts'
-import { comments, commentForm } from './comments'
+import { posts } from './posts'
+import { comments } from './comments'
+import { postForm } from './forms/postForm'
+import { commentForm } from './forms/commentForm'
+
 import { routerReducer } from 'react-router-redux'
 
 /* Actions */
