@@ -11,7 +11,6 @@ export const POSTS_IS_LOADING = 'POSTS_IS_LOADING'
 export const POST_IS_LOADING = 'POST_IS_LOADING'
 export const POSTS_RECEIVE = 'POSTS_RECEIVE'
 export const POST_RECEIVE = 'POST_RECEIVE'
-export const POST_REMOVE = 'POST_REMOVE'
 export const POSTS_SORT = 'POSTS_SORT'
 
 export const POST_IS_DELETING = 'POST_IS_DELETING'
@@ -119,9 +118,4 @@ export const postsReceive = posts => ({
 export const postsSort = sort => ({
     type: POSTS_SORT,
     sort
-})
-
-export const removePost = post => ({
-    type: POST_REMOVE,
-    post
 })

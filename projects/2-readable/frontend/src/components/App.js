@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Link, Switch } from 'react-router'
+import { Route, Switch } from 'react-router'
 import { withRouter } from 'react-router-dom'
 
 import Header from './common/header/header'
 import ListPosts from './common/listPosts/listPosts'
 import ViewPost from './viewPost/viewPost'
 import PostForm from './postForm/postForm'
-
-import {
-  Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-  ToolbarTitle
-} from 'material-ui/Toolbar'
+import CommentForm from './commentForm/commentForm'
 
 import { 
   categoriesFetch,
@@ -25,7 +19,11 @@ import {
   postFormClose,
   postFormEdit,
   postFormSubmit,
-  postDelete
+  postDelete,
+  commentFormOpen,
+  commentFormEdited,
+  commentFormClose,
+  commentFormSubmit,
 } from '../actions'
 
 import './App.css'
@@ -52,9 +50,6 @@ import './App.css'
 */
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentDidMount() {
     this.props.categoriesFetch()
@@ -76,20 +71,20 @@ class App extends Component {
           postFormClose={this.props.postFormClose}
           postFormSubmit={this.props.postFormSubmit}
         />
-        {/* <CommentForm
-          open={this.props.commentForm}
+        <CommentForm
+          open={this.props.commentForm.isEditing}
           commentData={this.props.commentForm}
-          commentFormChange={this.props.commentFormEdit}
+          commentFormChange={this.props.commentFormEdited}
           commentFormClose={this.props.commentFormClose}
           commentFormSubmit={this.props.commentFormSubmit}
-        /> */}
+        />
         <Switch>
           <Route 
             path="/"
             exact
             render={() => 
             <ListPosts 
-                posts={this.props.posts ? this.props.posts.data : []}
+                posts={this.props.posts.data}
                 postsFetch={this.props.postsFetch}
                 createPost={this.props.postFormOpen}
               />
@@ -99,13 +94,14 @@ class App extends Component {
             path="/:category/:postId"
             render={({match}) =>
               <ViewPost 
-                post={this.props.posts ? this.props.posts.data.filter(post => post.id === match.params.postId)[0] : null}
+                post={this.props.posts.data.filter(post => post.id === match.params.postId)[0]}
                 postId={match.params.postId}
-                comments={this.props.comments ? this.props.comments.data : []}
+                comments={this.props.comments.data}
                 commentsFetch={this.props.commentsFetch}
                 postFetch={this.props.postFetch}
                 editPost={this.props.postFormOpen}
                 deletePost={this.props.deletePost}
+                commentFormOpen={this.props.commentFormOpen}
               />
             }
           />
@@ -114,7 +110,7 @@ class App extends Component {
             render={({match}) =>
               <div>
                 <ListPosts 
-                  posts={this.props.posts ? this.props.posts.data : []}
+                  posts={this.props.posts.data}
                   category={match.params.category}
                   postsFetch={this.props.postsFetch}
                   createPost={this.props.postFormOpen}
@@ -129,16 +125,20 @@ class App extends Component {
 }
 
 const bindActionsToDispatch = dispatch => ({
-  categoriesFetch : () => {dispatch(categoriesFetch())},
-  postsFetch : (category) => {dispatch(postsFetch(category))},
-  postFetch : (postId) => {dispatch(postFetch(postId))},
-  postsSort : (sort) => {dispatch(postsSort(sort))},
-  commentsFetch : (post) => {dispatch(commentsFetch(post))},
-  postFormOpen : post => {dispatch(postFormOpen(post))},
-  postFormClose : () => {dispatch(postFormClose())},
-  postFormSubmit : (post, newPost) => {dispatch(postFormSubmit(post, newPost))},
-  postFormEdit : postChanges => {dispatch(postFormEdit(postChanges))},
-  deletePost: post => {dispatch(postDelete(post))}
+    categoriesFetch:   ()                      => dispatch( categoriesFetch() ),
+    postsFetch:        (category)              => dispatch( postsFetch(category) ),
+    postFetch:         (postId)                => dispatch( postFetch(postId) ),
+    postsSort:         (sort)                  => dispatch( postsSort(sort) ),
+    commentsFetch:     (post)                  => dispatch( commentsFetch(post) ),
+    postFormOpen:      (post)                  => dispatch( postFormOpen(post) ),
+    postFormClose:     ()                      => dispatch( postFormClose() ),
+    postFormSubmit:    (post, isNewPost)       => dispatch( postFormSubmit(post, isNewPost) ),
+    postFormEdit:      (post)                  => dispatch( postFormEdit(post) ),
+    deletePost:        (post)                  => dispatch( postDelete(post) ),
+    commentFormOpen:   (post)                  => dispatch( commentFormOpen(post) ),
+    commentFormEdited: (comment)               => dispatch( commentFormEdited(comment) ),
+    commentFormClose:  ()                      => dispatch( commentFormClose() ),
+    commentFormSubmit: (comment, isNewComment) => dispatch( commentFormSubmit(comment, isNewComment) )
 })
 
 export default withRouter(

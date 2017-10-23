@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import {Card, CardActions, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -42,6 +41,7 @@ class ViewPost extends Component {
             <CardActions>
               <FlatButton label="Edit" onClick={() => this.props.editPost(this.props.post)}/>
               <FlatButton label="Remove" onClick={() => this.props.deletePost(this.props.post)}/>
+              <FlatButton label="Add Comment" onClick={() => this.props.commentFormOpen(this.props.post)}/>
             </CardActions>
           </Card>
         )
@@ -55,7 +55,7 @@ class ViewPost extends Component {
         {postCard}
         
         {this.props.comments ? this.props.comments.map(comment => {
-            return <Card>
+            return <Card key={comment.id}>
               <CardText>
                 <p>Author {comment.author}</p>
                 <p>{comment.body}</p>

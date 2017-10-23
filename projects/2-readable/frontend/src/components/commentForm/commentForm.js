@@ -3,90 +3,56 @@ import React, { Component } from 'react';
 import {
   Dialog,
   FlatButton,
-  MenuItem,
-  SelectField,
   TextField
 } from 'material-ui'
 
 class CommentForm extends Component {
-  handleCategoryChange = (e, key, category) => {
-    this.props.postFormChange({
-      category
-    })
-  }
 
-  handleAuthorChange = (e, author) => {
-    this.props.postFormChange({
-      author
-    })
-  }
+  handleAuthorChange = (e, author) => this.props.commentFormChange({
+    ...this.props.commentData.comment,
+    author
+  })
 
-  handleTitleChange = (e, title) => {
-    this.props.postFormChange({
-      title
-    })
-  }
+  handleTitleChange = (e, title) => this.props.commentFormChange({
+    ...this.props.commentData.comment,
+    title
+  })
 
-  handleBodyChange = (e, body) => {
-    this.props.postFormChange({
-      body
-    })
-  }
+  handleBodyChange = (e, body) => this.props.commentFormChange({
+    ...this.props.commentData.comment,
+    body
+  })
 
-  handleSubmit = () => {
-    let {category, author, body, title, id} = this.props.postData.post
-    this.props.postFormSubmit({
-      category: category.name,
-      author,
-      body,
-      title,
-      id
-    })
-  }
+  handleSubmit = () => this.props.commentFormSubmit({
+    ...this.props.commentData.comment
+  }, this.props.commentData.isNewComment)
 
   render() {
     const actions = [
       <FlatButton
         label="Close"
         primary={true}
-        onClick={this.props.postFormClose}
+        onClick={this.props.commentFormClose}
       />,
       <FlatButton
-        label="Submit Post"
+        label="Submit Comment"
         primary={true}
-        disabled={!this.props.postData.submitEnabled}
+        disabled={!this.props.commentData.submitEnabled}
         onClick={this.handleSubmit}
       />,
     ]
     return (
       <Dialog
-        title={this.props.postData.newPost ? 'New Post' : 'Edit Post'}
+        title={this.props.commentData.isNewComment ? 'New Comment' : 'Edit Comment'}
         modal={true}
         actions={actions}
         autoScrollBodyContent={true}
-        open={!!this.props.open}>
-        {this.props.postData.newPost && 
-          <div>
-            <SelectField
-              floatingLabelText="Category"
-              value={this.props.postData.post.category}
-              onChange={this.handleCategoryChange}>
-              {this.props.categories
-                .map(category => 
-                  <MenuItem 
-                    value={category.name} 
-                    primaryText={category.name} 
-                  />
-                )
-              }
-            </SelectField>
-          </div>
-        }
-        {this.props.postData.newPost &&
+        open={this.props.open}>
+        {this.props.commentData.isNewComment &&
           <div>
             <TextField 
               floatingLabelText="Author"
-              value={this.props.postData.post.author}
+              value={this.props.commentData.comment.author}
               onChange={this.handleAuthorChange}
             />
           </div>
@@ -94,7 +60,7 @@ class CommentForm extends Component {
         <TextField 
           floatingLabelText="Title"
           fullWidth={true}
-          value={this.props.postData.post.title}
+          value={this.props.commentData.comment.title}
           onChange={this.handleTitleChange}
         />
         <br />
@@ -103,7 +69,7 @@ class CommentForm extends Component {
           multiLine={true}
           fullWidth={true}
           rows={4}
-          value={this.props.postData.post.body}
+          value={this.props.commentData.comment.body}
           onChange={this.handleBodyChange}
         />
       </Dialog>
@@ -111,4 +77,4 @@ class CommentForm extends Component {
   }
 }
 
-export default PostForm;
+export default CommentForm;

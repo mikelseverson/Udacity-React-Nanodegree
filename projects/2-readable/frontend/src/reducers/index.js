@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 /* Reducers */
 import { categories } from './categories'
 import { posts, postForm } from './posts'
-import { comments } from './comments'
+import { comments, commentForm } from './comments'
 import { routerReducer } from 'react-router-redux'
 
 /* Actions */
@@ -24,5 +24,6 @@ export default combineReducers({
     posts,
     postForm,
     comments,
+    commentForm,
     router: routerReducer
 });

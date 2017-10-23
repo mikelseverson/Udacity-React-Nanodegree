@@ -4,14 +4,12 @@ import {
     POST_IS_LOADING,
     POST_RECEIVE,
     POSTS_SORT,
-    POST_REMOVE,
     POST_DELETED,
 } from '../actions'
 
 import {
     POST_FORM_OPEN,
     POST_FORM_EDIT,
-    POST_FORM_SUBMITTED,
     POST_FORM_CLOSE,
     POST_FORM_SUCCESS
 } from '../actions'
@@ -44,11 +42,6 @@ export function posts(state = initialState, action) {
                 ...state,
                 data: [post]
             }
-        case POST_REMOVE:
-            return {
-                ...state
-                // post
-            }
         case POST_DELETED:
             return {
                 ...state,
@@ -66,9 +59,11 @@ export function posts(state = initialState, action) {
                     .sort((a, b) => {
                         switch (sort) {
                             case 'voteScore':
-                                return b.voteScore - a.voteScore;
+                                return b.voteScore - a.voteScore
                             case 'date':
-                                return b.timestamp - a.timestamp;;
+                                return b.timestamp - a.timestamp
+                            default: 
+                                return 0
                         }
                     }),
                 sort
@@ -132,12 +127,7 @@ export function postForm(state = postFormInitialState, action) {
             }
         case POST_FORM_SUCCESS:
             return {
-                isEditing: false,
-                submitEnabled: false,
-                newPost: true,
-                post: {
-                    ...postFormInitialState.post
-                }
+                ...postFormInitialState.post
             }
         default:
             return {

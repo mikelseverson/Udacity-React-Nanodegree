@@ -9,33 +9,25 @@ import {
 } from 'material-ui'
 
 class PostForm extends Component {
-  handleCategoryChange = (e, key, category) => {
-    this.props.postFormChange({
-      ...this.props.postData.post,
-      category
-    })
-  }
+  handleCategoryChange = (e, key, category) => this.props.postFormChange({
+    ...this.props.postData.post,
+    category
+  })
 
-  handleAuthorChange = (e, author) => {
-    this.props.postFormChange({
-      ...this.props.postData.post,
-      author
-    })
-  }
+  handleAuthorChange = (e, author) => this.props.postFormChange({
+    ...this.props.postData.post,
+    author
+  })
 
-  handleTitleChange = (e, title) => {
-    this.props.postFormChange({
-      ...this.props.postData.post,
-      title
-    })
-  }
+  handleTitleChange = (e, title) => this.props.postFormChange({
+    ...this.props.postData.post,
+    title
+  })
 
-  handleBodyChange = (e, body) => {
-    this.props.postFormChange({
-      ...this.props.postData.post,
-      body
-    })
-  }
+  handleBodyChange = (e, body) => this.props.postFormChange({
+    ...this.props.postData.post,
+    body
+  })
 
   handleSubmit = () => {
     let {category, author, body, title, id} = this.props.postData.post
@@ -53,7 +45,6 @@ class PostForm extends Component {
         body,
         id
       }
-    console.log(postData, newPost);
     this.props.postFormSubmit(postData, newPost)
   }
 
@@ -86,7 +77,8 @@ class PostForm extends Component {
               onChange={this.handleCategoryChange}>
               {this.props.categories
                 .map(category => 
-                  <MenuItem 
+                  <MenuItem
+                    key={category.name} 
                     value={category.name} 
                     primaryText={category.name} 
                   />

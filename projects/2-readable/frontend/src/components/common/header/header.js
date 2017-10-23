@@ -10,10 +10,6 @@ import AppBar from 'material-ui/AppBar';
 
 class Header extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   handleChange = (event, index, sort) => this.props.postsSort(sort);
 
   render() {

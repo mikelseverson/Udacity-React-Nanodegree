@@ -106,14 +106,16 @@ export const deletePost = post => {
  USAGE:
   Add a comment to a post
  PARAMS:
-  id: Any unique ID. As with posts, UUID is probably the best here.
-  timestamp: timestamp. Get this however you want.
-  body: String
-  author: String
-  parentId: Should match a post id in the database.
+  comment
+    id: Any unique ID. As with posts, UUID is probably the best here.
+    timestamp: timestamp. Get this however you want.
+    body: String
+    author: String
+    parentId: Should match a post id in the database.
 */
 export const postComment = comment => {
-    return fetch(`${URL}`, { headers })
+    return fetch(`${URL}/comments`, { headers, method: 'POST', body: JSON.stringify({...comment, timestamp: Date.now()}) })
+        .then(res => res.json())
 }
 
 /*
@@ -126,14 +128,6 @@ export const fetchComments = post => {
         .then(res => res.json())
 }
 
-/*
- GET /comments/:id
- USAGE:
-  Get the details for a single comment
-*/
-export const fetchComment = comment => {
-
-}
 
 /*
  POST /comments/:id
@@ -141,7 +135,8 @@ export const fetchComment = comment => {
   Used for voting on a comment.
 */
 export const voteComment = comment => {
-
+    return fetch(`${URL}/${comment.id}`, { headers, method: 'POST', body: JSON.stringify({}) })
+        .then(res => res.json())
 }
 
 /*
@@ -153,7 +148,8 @@ export const voteComment = comment => {
   body: String
 */
 export const editComment = comment => {
-
+    return fetch(`${URL}/${comment.id}`, { headers, method: 'PUT', body: JSON.stringify({}) })
+        .then(res => res.json())
 }
 
 /*
@@ -162,5 +158,6 @@ export const editComment = comment => {
   Sets a comment's deleted flag to 'true'
 */
 export const deleteComment = comment => {
-
+    return fetch(`${URL}/${comment.id}`, { headers, method: 'DELETE' })
+        .then(res => res.json())
 }
