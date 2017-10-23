@@ -20,6 +20,18 @@ const initialState = {
 
 export function posts(state = initialState, action) {
     let { isFetching, posts, post, sort, newPost, commentCount } = action
+
+    const sortPosts = (posts, sort) => 
+        posts.sort((a, b) => {
+            switch (sort) {
+                case 'voteScore':
+                    return b.voteScore - a.voteScore
+                case 'date':
+                    return b.timestamp - a.timestamp
+                default: 
+                    return 0
+            }
+        })
     switch (action.type) {
         case POSTS_IS_LOADING:
             return {
@@ -59,24 +71,14 @@ export function posts(state = initialState, action) {
         case POST_VOTED:
             return {
                 ...state,
-                data: state.data.map(postObj => postObj.id === post.id ? {...postObj, ...post} : postObj)
+                data: sortPosts(state.data.map(postObj => postObj.id === post.id ? {...postObj, ...post} : postObj), state.sort)
             }
         case POSTS_SORT:
             return {
                 ...state,
-                data: state.data
-                    .sort((a, b) => {
-                        switch (sort) {
-                            case 'voteScore':
-                                return b.voteScore - a.voteScore
-                            case 'date':
-                                return b.timestamp - a.timestamp
-                            default: 
-                                return 0
-                        }
-                    }),
+                data: sortPosts(state.data, sort),
                 sort
-                }
+            }
         default:
             return {...state}
     }
