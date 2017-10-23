@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import {Card, CardActions, CardHeader} from 'material-ui/Card';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -32,6 +32,8 @@ class ListPosts extends Component {
                       title={post.voteScore + ' - ' + post.title}
                     />
                   </Link>
+                  <CardText>Author: {post.author}</CardText>
+                  <CardText>{new Date( post.timestamp ).toUTCString()}</CardText>
                   <CardActions>
                     <Link
                       to={`/${post.category}/${post.id}`}>
