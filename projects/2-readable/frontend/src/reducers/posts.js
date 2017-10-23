@@ -6,6 +6,7 @@ import {
     POSTS_SORT,
     POST_DELETED,
     POST_VOTED,
+    POST_COMMENT_COUNT
 } from '../actions'
 
 import {
@@ -18,7 +19,7 @@ const initialState = {
 }
 
 export function posts(state = initialState, action) {
-    let { isFetching, posts, post, sort, newPost } = action
+    let { isFetching, posts, post, sort, newPost, commentCount } = action
     switch (action.type) {
         case POSTS_IS_LOADING:
             return {
@@ -43,17 +44,22 @@ export function posts(state = initialState, action) {
         case POST_DELETED:
             return {
                 ...state,
-                data: state.data.map(postObj => postObj.id === post.id ? post : postObj)
+                data: state.data.map(postObj => postObj.id === post.id ? {...postObj, ...post} : postObj)
             }
         case POST_FORM_SUCCESS:
             return {
                 ...state,
-                data: newPost ? [post, ...state.data] : state.data.map(postObj => postObj.id === post.id ? post : postObj)
+                data: newPost ? [post, ...state.data] : state.data.map(postObj => postObj.id === post.id ? {...postObj, ...post} : postObj)
+            }
+        case POST_COMMENT_COUNT: 
+            return {
+                ...state,
+                data: state.data.map(postObj => postObj.id === post.id ? {...post, commentCount} : postObj)
             }
         case POST_VOTED:
             return {
                 ...state,
-                data: state.data.map(postObj => postObj.id === post.id ? post : postObj)
+                data: state.data.map(postObj => postObj.id === post.id ? {...postObj, ...post} : postObj)
             }
         case POSTS_SORT:
             return {

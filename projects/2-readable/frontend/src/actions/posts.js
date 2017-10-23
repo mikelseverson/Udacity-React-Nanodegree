@@ -2,7 +2,8 @@ import {
     fetchPosts, 
     fetchPost, 
     deletePost,
-    votePost
+    votePost,
+    fetchComments
 } from '../util/readableAPI'
 
 export const POSTS_IS_LOADING = 'POSTS_IS_LOADING'
@@ -15,11 +16,21 @@ export const POST_IS_DELETING = 'POST_IS_DELETING'
 export const POST_DELETED = 'POST_DELETED'
 export const POST_VOTING = 'POST_VOTING'
 export const POST_VOTED = 'POST_VOTED'
+export const POST_COMMENT_COUNT = 'POST_COMMENT_COUNT'
 
 export const postsFetch = category => dispatch => {
     dispatch(postsIsFetching(true))
     return fetchPosts(category)
-        .then(posts => dispatch(postsReceive(posts)))
+        .then(posts => {
+            dispatch(postsReceive(posts))
+            posts.map(post => 
+                fetchComments(post)
+                    .then(comments => 
+                        dispatch(
+                            postCommentCount(post, (comments && Number(comments.length)) ? comments.length : 0))
+                )
+            )
+        })
 }
 
 export const postFetch = postId => dispatch => {
@@ -83,4 +94,10 @@ export const postsSort = sort => ({
 export const postVoted = post => ({
     type: POST_VOTED,
     post
+})
+
+export const postCommentCount = (post, commentCount) => ({
+    type: POST_COMMENT_COUNT,
+    post,
+    commentCount
 })

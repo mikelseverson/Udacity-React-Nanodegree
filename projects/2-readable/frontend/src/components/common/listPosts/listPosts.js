@@ -32,8 +32,15 @@ class ListPosts extends Component {
                       title={post.voteScore + ' - ' + post.title}
                     />
                   </Link>
-                  <CardText>Author: {post.author}</CardText>
-                  <CardText>{new Date( post.timestamp ).toUTCString()}</CardText>
+                  <CardText>
+                    Added by {post.author} 
+                    <br />
+                    {post.commentCount ? 
+                        (post.commentCount + ' comment' + (post.commentCount > 1 ? 's' : ''))
+                      : 'no comments'}
+                    <br />
+                    Posted At: {new Date( post.timestamp ).toUTCString()}
+                  </CardText>
                   <CardActions>
                     <Link
                       to={`/${post.category}/${post.id}`}>
