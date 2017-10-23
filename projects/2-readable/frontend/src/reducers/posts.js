@@ -1,5 +1,4 @@
 import {
-    POSTS_IS_LOADING,
     POSTS_RECEIVE,
     POST_IS_LOADING,
     POST_RECEIVE,
