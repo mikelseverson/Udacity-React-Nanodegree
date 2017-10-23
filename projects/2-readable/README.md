@@ -1,5 +1,5 @@
 # Udacity React Nanodegree - Project 2 - 'Readable'
-![data](https://i.imgur.com/m6pxcsZ.png)
+![data](https://i.imgur.com/mPP5YN3.png)
 ## Project Overview
 For the Readable project, you will build a content and comment web app. 
 
