@@ -10,17 +10,17 @@ class CommentForm extends Component {
 
   handleAuthorChange = (e, author) => this.props.commentFormChange({
     ...this.props.commentData.comment,
-    author
+    author: author.substr(0, 20)
   })
 
   handleTitleChange = (e, title) => this.props.commentFormChange({
     ...this.props.commentData.comment,
-    title
+    title: title.substr(0, 60)
   })
 
   handleBodyChange = (e, body) => this.props.commentFormChange({
     ...this.props.commentData.comment,
-    body
+    body: body.substr(0, 200)
   })
 
   handleSubmit = () => this.props.commentFormSubmit({

@@ -16,17 +16,17 @@ class PostForm extends Component {
 
   handleAuthorChange = (e, author) => this.props.postFormChange({
     ...this.props.postData.post,
-    author
+    author: author.substr(0, 20)
   })
 
   handleTitleChange = (e, title) => this.props.postFormChange({
     ...this.props.postData.post,
-    title
+    title: title.substr(0, 60)
   })
 
   handleBodyChange = (e, body) => this.props.postFormChange({
     ...this.props.postData.post,
-    body
+    body: body.substr(0, 300)
   })
 
   handleSubmit = () => {
