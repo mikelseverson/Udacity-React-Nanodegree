@@ -83,6 +83,7 @@ export const editPost = post => {
 */
 export const votePost = (post, option) => {
     return fetch(`${URL}/posts/${post.id}`, {headers, method: 'POST', body: JSON.stringify({option})})
+        .then(res => res.json())
 }
 
 /*

@@ -20,6 +20,8 @@ import {
   postFormEdit,
   postFormSubmit,
   postDelete,
+  postVote,
+  commentVote,
   commentDelete,
   commentFormOpen,
   commentFormEdited,
@@ -76,6 +78,7 @@ class App extends Component {
                 posts={this.props.posts.data}
                 postsFetch={this.props.postsFetch}
                 createPost={this.props.postFormOpen}
+                postVote={this.props.postVote}
               />
             }
           />
@@ -92,6 +95,8 @@ class App extends Component {
                 deletePost={this.props.deletePost}
                 deleteComment={this.props.deleteComment}
                 commentFormOpen={this.props.commentFormOpen}
+                commentVote={this.props.commentVote}
+                postVote={this.props.postVote}
               />
             }
           />
@@ -125,6 +130,8 @@ const bindActionsToDispatch = dispatch => ({
     postFormSubmit:    (post, isNewPost)       => dispatch( postFormSubmit(post, isNewPost) ),
     postFormEdit:      (post)                  => dispatch( postFormEdit(post) ),
     deletePost:        (post)                  => dispatch( postDelete(post) ),
+    postVote:          (post, option)          => dispatch( postVote(post, option)),
+    commentVote:       (comment, option)       => dispatch( commentVote(comment, option)),
     deleteComment:     (comment)               => dispatch( commentDelete(comment) ),
     commentFormOpen:   (post, comment)         => dispatch( commentFormOpen(post, comment) ),
     commentFormEdited: (comment)               => dispatch( commentFormEdited(comment) ),

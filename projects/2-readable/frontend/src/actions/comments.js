@@ -3,6 +3,7 @@ import { fetchComments, deleteComment, voteComment } from '../util/readableAPI'
 export const COMMENTS_IS_LOADING = 'COMMENTS_IS_LOADING'
 export const COMMENTS_RECEIVE = 'COMMENTS_RECEIVE'
 export const COMMENT_DELETED = 'COMMENT_DELETED'
+export const COMMENT_VOTED = 'COMMENT_VOTED'
 
 export const commentsFetch = post => dispatch => {
     dispatch(commentsIsFetching(true))
@@ -15,9 +16,9 @@ export const commentDelete = comment => dispatch => {
         .then(comment => dispatch(commentDeleted(comment)))
 }
 
-export const commentVote = (post, option) => dispatch => {
-    return voteComment(post, option)
-        .then(data => console.log(data))
+export const commentVote = (comment, option) => dispatch => {
+    return voteComment(comment, option)
+        .then(comment => dispatch(commentVoted(comment)))
 }
 
 export const commentsIsFetching = isFetching => ({
@@ -32,5 +33,10 @@ export const commentsReceive = comments => ({
 
 export const commentDeleted = comment => ({
     type: COMMENT_DELETED,
+    comment
+})
+
+export const commentVoted = comment => ({
+    type: COMMENT_VOTED,
     comment
 })

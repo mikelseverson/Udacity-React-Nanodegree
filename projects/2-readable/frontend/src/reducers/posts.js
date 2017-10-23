@@ -5,6 +5,7 @@ import {
     POST_RECEIVE,
     POSTS_SORT,
     POST_DELETED,
+    POST_VOTED,
 } from '../actions'
 
 import {
@@ -48,6 +49,11 @@ export function posts(state = initialState, action) {
             return {
                 ...state,
                 data: newPost ? [post, ...state.data] : state.data.map(postObj => postObj.id === post.id ? post : postObj)
+            }
+        case POST_VOTED:
+            return {
+                ...state,
+                data: state.data.map(postObj => postObj.id === post.id ? post : postObj)
             }
         case POSTS_SORT:
             return {

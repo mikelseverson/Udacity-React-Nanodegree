@@ -14,6 +14,7 @@ export const POSTS_SORT = 'POSTS_SORT'
 export const POST_IS_DELETING = 'POST_IS_DELETING'
 export const POST_DELETED = 'POST_DELETED'
 export const POST_VOTING = 'POST_VOTING'
+export const POST_VOTED = 'POST_VOTED'
 
 export const postsFetch = category => dispatch => {
     dispatch(postsIsFetching(true))
@@ -36,7 +37,7 @@ export const postDelete = post => dispatch => {
 export const postVote = (post, option) => dispatch => {
     dispatch(postVoting(true))
     return votePost(post, option)
-        .then(data => console.log(data))
+        .then(post => dispatch(postVoted(post)))
 }
 
 export const postsIsFetching = isFetching => ({
@@ -77,4 +78,9 @@ export const postDeleted = post => ({
 export const postsSort = sort => ({
     type: POSTS_SORT,
     sort
+})
+
+export const postVoted = post => ({
+    type: POST_VOTED,
+    post
 })

@@ -56,7 +56,7 @@ class PostForm extends Component {
         onClick={this.props.postFormClose}
       />,
       <FlatButton
-        label="Submit Post"
+        label={this.props.postData.newPost ? 'Submit your post' : 'Submit your edit'}
         primary={true}
         disabled={!this.props.postData.submitEnabled}
         onClick={this.handleSubmit}

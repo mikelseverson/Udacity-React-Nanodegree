@@ -1,7 +1,8 @@
 import {
     COMMENTS_IS_LOADING,
     COMMENTS_RECEIVE,
-    COMMENT_DELETED
+    COMMENT_DELETED,
+    COMMENT_VOTED
 } from '../actions'
 
 import {
@@ -29,6 +30,11 @@ export function comments(state = initialState, action) {
                 data: comments
             }
         case COMMENT_DELETED:
+            return {
+                ...state,
+                data: state.data.map(commentObj => commentObj.id === comment.id ? comment : commentObj)
+            }
+        case COMMENT_VOTED:
             return {
                 ...state,
                 data: state.data.map(commentObj => commentObj.id === comment.id ? comment : commentObj)

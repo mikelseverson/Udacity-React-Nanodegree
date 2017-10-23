@@ -42,8 +42,8 @@ class ViewPost extends Component {
               <FlatButton label="Edit" onClick={() => this.props.editPost(this.props.post)}/>
               <FlatButton label="Remove" onClick={() => this.props.deletePost(this.props.post)}/>
               <FlatButton label="Add Comment" onClick={() => this.props.commentFormOpen(this.props.post)}/>
-              <FlatButton label="Upvote"/>
-              <FlatButton label="Downvote"/>
+              <FlatButton label="Upvote" onClick={() => this.props.postVote(this.props.post, 'upVote')} />
+              <FlatButton label="Downvote" onClick={() => this.props.postVote(this.props.post, 'downVote')}/>
             </CardActions>
           </Card>
         )
@@ -64,8 +64,8 @@ class ViewPost extends Component {
               <CardActions>
                 <FlatButton label="Edit" onClick={() => this.props.commentFormOpen(this.props.post, comment)}/>
                 <FlatButton label="Remove" onClick={() => this.props.deleteComment(comment)}/>
-                <FlatButton label="Upvote"/>
-                <FlatButton label="Downvote"/>
+                <FlatButton label="Upvote" onClick={() => this.props.commentVote(comment, 'upVote')}/>
+                <FlatButton label="Downvote" onClick={() => this.props.commentVote(comment, 'downVote')}/>
               </CardActions>
             </Card>
         }) : 'No comments'}

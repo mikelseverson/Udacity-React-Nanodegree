@@ -29,7 +29,7 @@ class ListPosts extends Component {
                   <Link
                     to={`/${post.category}/${post.id}`}>
                     <CardHeader
-                      title={post.title}
+                      title={post.voteScore + ' - ' + post.title}
                     />
                   </Link>
                   <CardActions>
@@ -37,8 +37,8 @@ class ListPosts extends Component {
                       to={`/${post.category}/${post.id}`}>
                       <FlatButton label="View Post"/>
                     </Link>
-                    <FlatButton label="Upvote"/>
-                    <FlatButton label="Downvote"/>
+                    <FlatButton label="Upvote" onClick={() => this.props.postVote(post, 'upVote')} />
+                    <FlatButton label="Downvote" onClick={() => this.props.postVote(post, 'downVote')}/>
                   </CardActions>
                 </Card>
               )
