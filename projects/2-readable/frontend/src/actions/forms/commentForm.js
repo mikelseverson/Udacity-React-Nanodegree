@@ -1,5 +1,6 @@
 import { 
-    postComment 
+    postComment,
+    editComment,
 } from '../../util/readableAPI'
 
 export const COMMENT_FORM_OPEN = 'COMMENT_FORM_OPEN'
@@ -8,7 +9,7 @@ export const COMMENT_FORM_CLOSE = 'COMMENT_FORM_CLOSE'
 export const COMMENT_FORM_SUCCESS = 'COMMENT_FORM_SUCCESS'
 
 export const commentFormSubmit = (comment, isNewComment) => dispatch => {
-    return postComment(comment)
+    return isNewComment ? postComment(comment) : editComment(comment)
         .then(comment => dispatch(commentFormSuccess(comment, isNewComment)))
 }
 

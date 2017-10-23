@@ -122,6 +122,9 @@ export const postComment = comment => {
  GET /posts/:id/comments
  USAGE:
   Get all the comments for a single post
+ PARAMS
+  POST
+   id: string
 */
 export const fetchComments = post => {
     return fetch(`${URL}/posts/${post.id}/comments`, { headers })
@@ -133,9 +136,13 @@ export const fetchComments = post => {
  POST /comments/:id
  USAGE:
   Used for voting on a comment.
+ PARAMS:
+  comment
+    id: string
+  option: string
 */
-export const voteComment = comment => {
-    return fetch(`${URL}/${comment.id}`, { headers, method: 'POST', body: JSON.stringify({}) })
+export const voteComment = (comment, option) => {
+    return fetch(`${URL}/comments/${comment.id}`, { headers, method: 'POST', body: JSON.stringify({option}) })
         .then(res => res.json())
 }
 
@@ -144,11 +151,11 @@ export const voteComment = comment => {
  USAGE:
   Edit the details of an existing comment
  PARAMS:
-  timestamp: timestamp. Get this however you want.
-  body: String
+  comment 
+    body: String
 */
 export const editComment = comment => {
-    return fetch(`${URL}/${comment.id}`, { headers, method: 'PUT', body: JSON.stringify({}) })
+    return fetch(`${URL}/comments/${comment.id}`, { headers, method: 'PUT', body: JSON.stringify({ body: comment.body, timestamp: Date.now()}) })
         .then(res => res.json())
 }
 
