@@ -26,8 +26,8 @@ const defaultData = {
   "8xf0y6ziyjabvofdcd253fd": {
     id: '8xf0y6ziyjabvofdcd253fd',
     timestamp: 1467166872634,
-    title: 'Udacity is the best place to learn React',
-    body: 'Everyone says so after all.',
+    title: 'This is a great learning project',
+    body: 'learned a ton!',
     author: 'thingtwo',
     category: 'react',
     voteScore: 6,
@@ -36,11 +36,11 @@ const defaultData = {
   "6ni6ok3dm7mf1pzx33lnez": {
     id: '6ni6ok3dm7mf1pzx33lnez',
     timestamp: 1468479767190,
-    title: 'Learn Redux in 10 minutes!',
-    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    title: 'Redux!',
+    body: 'Learning redux.',
     author: 'thingone',
     category: 'redux',
-    voteScore: -5,
+    voteScore: 1,
     deleted: false
   },
   "8xf0y6ziyjcbvozdd253nd": {
@@ -53,14 +53,24 @@ const defaultData = {
     voteScore: 6,
     deleted: false
   },
+  "8xf0y6ziyjcbvozdd253nd": {
+    id: '8xf0y6-iyjcb-dd253nd',
+    timestamp: 1467166870634,
+    title: 'Udacity!!',
+    body: 'this is a post',
+    author: 'thingtwo',
+    category: 'udacity',
+    voteScore: 2,
+    deleted: false
+  },
   "6ni6ok3am7lf1p33lnez": {
     id: '6ni6ok3am7lf1p33lnez',
     timestamp: 1468479767190,
-    title: 'Learn Redux in 10 minutes!',
-    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    title: 'Learn Redux in 9 minutes!',
+    body: 'Just kidding. It takes like 10 minutes to learn technology.',
     author: 'thingone',
     category: 'redux',
-    voteScore: -5,
+    voteScore: -14,
     deleted: false
   }
 }
