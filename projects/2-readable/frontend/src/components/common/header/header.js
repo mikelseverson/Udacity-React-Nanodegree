@@ -16,7 +16,7 @@ class Header extends Component {
     return (
       <div>
         <AppBar
-            title="Welcome to Readable"
+            title="Readable"
             showMenuIconButton={false}
           />
         <Toolbar>
