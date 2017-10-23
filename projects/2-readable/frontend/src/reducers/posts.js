@@ -127,7 +127,7 @@ export function postForm(state = postFormInitialState, action) {
             }
         case POST_FORM_SUCCESS:
             return {
-                ...postFormInitialState.post
+                ...postFormInitialState
             }
         default:
             return {
