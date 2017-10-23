@@ -33,11 +33,6 @@ export function posts(state = initialState, action) {
             }
         })
     switch (action.type) {
-        case POSTS_IS_LOADING:
-            return {
-                ...state,
-                isFetching
-            }
         case POSTS_RECEIVE:
             return {
                 ...state,
@@ -51,6 +46,7 @@ export function posts(state = initialState, action) {
         case POST_RECEIVE:
             return {
                 ...state,
+                isFetching: false,
                 data: [post]
             }
         case POST_DELETED:

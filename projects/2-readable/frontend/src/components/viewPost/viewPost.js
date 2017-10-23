@@ -21,7 +21,7 @@ class ViewPost extends Component {
 
   render() {
     var postCard;
-    if(this.props.post) {
+    if(this.props.post && !this.props.postIsFetching) {
       if(this.props.post.deleted) {
         postCard = (
           <Card>
@@ -48,6 +48,8 @@ class ViewPost extends Component {
           </Card>
         )
       }
+    } else if(this.props.postIsFetching) {
+      postCard = <Card><CardText><h2>Loading Post...</h2></CardText></Card>
     } else {
       postCard = <Card><CardText><h2>Post not found</h2></CardText></Card>
     }

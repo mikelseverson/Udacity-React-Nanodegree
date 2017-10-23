@@ -83,6 +83,7 @@ class App extends Component {
             render={({match}) =>
               <ViewPost 
                 post={this.props.posts.data.filter(post => post.id === match.params.postId)[0]}
+                postIsFetching={this.props.posts.isFetching}
                 postId={match.params.postId}
                 comments={this.props.comments.data}
                 commentsFetch={this.props.commentsFetch}
