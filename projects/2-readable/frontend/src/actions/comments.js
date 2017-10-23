@@ -1,4 +1,4 @@
-import { fetchComments, postComment } from '../util/readableAPI'
+import { fetchComments, postComment, deleteComment } from '../util/readableAPI'
 
 export const COMMENTS_IS_LOADING = 'COMMENTS_IS_LOADING'
 export const COMMENTS_RECEIVE = 'COMMENTS_RECEIVE'
@@ -17,6 +17,11 @@ export const commentsFetch = post => dispatch => {
 export const commentFormSubmit = (comment, isNewComment) => dispatch => {
     return postComment(comment)
         .then(comment => dispatch(commentFormSuccess(comment, isNewComment)))
+}
+
+export const commentDelete = comment => dispatch => {
+    return deleteComment(comment)
+        .then(comment => dispatch(commentDeleted(comment)))
 }
 
 export const commentsIsFetching = isFetching => ({

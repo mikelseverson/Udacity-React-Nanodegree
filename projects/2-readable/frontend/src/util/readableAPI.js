@@ -158,6 +158,6 @@ export const editComment = comment => {
   Sets a comment's deleted flag to 'true'
 */
 export const deleteComment = comment => {
-    return fetch(`${URL}/${comment.id}`, { headers, method: 'DELETE' })
+    return fetch(`${URL}/comments/${comment.id}`, { headers, method: 'DELETE' })
         .then(res => res.json())
 }

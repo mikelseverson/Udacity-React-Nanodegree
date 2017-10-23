@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import {Card, CardActions, CardHeader} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
 class ListPosts extends Component {
 
@@ -25,14 +26,19 @@ class ListPosts extends Component {
                 <Card 
                   key={post.id} 
                   className='post-card'>
-                  <CardHeader
-                    title={post.title}
-                  />
+                  <Link
+                    to={`/${post.category}/${post.id}`}>
+                    <CardHeader
+                      title={post.title}
+                    />
+                  </Link>
                   <CardActions>
                     <Link
                       to={`/${post.category}/${post.id}`}>
-                      View Post
+                      <FlatButton label="View Post"/>
                     </Link>
+                    <FlatButton label="Upvote"/>
+                    <FlatButton label="Downvote"/>
                   </CardActions>
                 </Card>
               )

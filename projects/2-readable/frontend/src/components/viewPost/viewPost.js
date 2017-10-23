@@ -42,6 +42,8 @@ class ViewPost extends Component {
               <FlatButton label="Edit" onClick={() => this.props.editPost(this.props.post)}/>
               <FlatButton label="Remove" onClick={() => this.props.deletePost(this.props.post)}/>
               <FlatButton label="Add Comment" onClick={() => this.props.commentFormOpen(this.props.post)}/>
+              <FlatButton label="Upvote"/>
+              <FlatButton label="Downvote"/>
             </CardActions>
           </Card>
         )
@@ -51,16 +53,20 @@ class ViewPost extends Component {
     }
 
     return <div>
-        
         {postCard}
-        
         {this.props.comments ? this.props.comments.map(comment => {
-            return <Card key={comment.id}>
+            return !comment.deleted && <Card key={comment.id}>
               <CardText>
-                <p>Author {comment.author}</p>
                 <p>{comment.body}</p>
+                <p>Author: {comment.author}</p>
                 <p>score: {comment.voteScore}</p>
               </CardText>
+              <CardActions>
+                <FlatButton label="Edit" onClick={() => this.props.commentFormOpen(this.props.post, comment)}/>
+                <FlatButton label="Remove" onClick={() => this.props.deleteComment(comment)}/>
+                <FlatButton label="Upvote"/>
+                <FlatButton label="Downvote"/>
+              </CardActions>
             </Card>
         }) : 'No comments'}
     </div>

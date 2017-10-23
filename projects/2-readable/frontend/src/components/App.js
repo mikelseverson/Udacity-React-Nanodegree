@@ -20,6 +20,7 @@ import {
   postFormEdit,
   postFormSubmit,
   postDelete,
+  commentDelete,
   commentFormOpen,
   commentFormEdited,
   commentFormClose,
@@ -101,6 +102,7 @@ class App extends Component {
                 postFetch={this.props.postFetch}
                 editPost={this.props.postFormOpen}
                 deletePost={this.props.deletePost}
+                deleteComment={this.props.deleteComment}
                 commentFormOpen={this.props.commentFormOpen}
               />
             }
@@ -135,7 +137,8 @@ const bindActionsToDispatch = dispatch => ({
     postFormSubmit:    (post, isNewPost)       => dispatch( postFormSubmit(post, isNewPost) ),
     postFormEdit:      (post)                  => dispatch( postFormEdit(post) ),
     deletePost:        (post)                  => dispatch( postDelete(post) ),
-    commentFormOpen:   (post)                  => dispatch( commentFormOpen(post) ),
+    deleteComment:     (comment)               => dispatch( commentDelete(comment) ),
+    commentFormOpen:   (post, comment)         => dispatch( commentFormOpen(post, comment) ),
     commentFormEdited: (comment)               => dispatch( commentFormEdited(comment) ),
     commentFormClose:  ()                      => dispatch( commentFormClose() ),
     commentFormSubmit: (comment, isNewComment) => dispatch( commentFormSubmit(comment, isNewComment) )

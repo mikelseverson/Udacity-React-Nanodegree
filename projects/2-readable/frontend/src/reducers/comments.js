@@ -48,7 +48,6 @@ const commentFormInitialState = {
     comment: {
         author: '',
         parentId: '',
-        title: '',
         body: ''
     }
 }
@@ -72,7 +71,7 @@ export function commentForm(state = commentFormInitialState, action) {
         case COMMENT_FORM_EDITED:
             return {
                 ...state,
-                submitEnabled: comment.author.length > 0 && comment.title.length > 0 && comment.body.length > 0,
+                submitEnabled: comment.author.length > 0 && comment.body.length > 0,
                 comment
             }
         case COMMENT_FORM_CLOSE:

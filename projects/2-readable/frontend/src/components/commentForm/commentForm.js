@@ -58,13 +58,6 @@ class CommentForm extends Component {
           </div>
         }
         <TextField 
-          floatingLabelText="Title"
-          fullWidth={true}
-          value={this.props.commentData.comment.title}
-          onChange={this.handleTitleChange}
-        />
-        <br />
-        <TextField 
           floatingLabelText="Body"
           multiLine={true}
           fullWidth={true}
