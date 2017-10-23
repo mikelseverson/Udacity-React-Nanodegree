@@ -61,7 +61,7 @@ export function posts(state = initialState, action) {
         case POST_FORM_SUCCESS:
             return {
                 ...state,
-                data: newPost ? [post, ...state.data] : state.data.map(postObj => postObj.id === post.id ? {...postObj, ...post} : postObj)
+                data: sortPosts(newPost ? [post, ...state.data] : state.data.map(postObj => postObj.id === post.id ? {...postObj, ...post} : postObj), state.sort)
             }
         case POST_COMMENT_COUNT: 
             return {
