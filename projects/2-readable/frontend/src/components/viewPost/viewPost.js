@@ -37,6 +37,7 @@ class ViewPost extends Component {
               <p>{this.props.post.body}</p>
               <p>Author: {this.props.post.author}</p>
               <p>Score: {this.props.post.voteScore}</p>
+              <p>Comments: {this.props.comments.length}</p>
             </CardText>
             <CardActions>
               <FlatButton label="Edit" onClick={() => this.props.editPost(this.props.post)}/>
