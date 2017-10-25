@@ -103,6 +103,9 @@ class App extends Component {
                   category={match.params.category}
                   postsFetch={this.props.postsFetch}
                   createPost={this.props.postFormOpen}
+                  postVote={this.props.postVote}
+                  deletePost={this.props.deletePost}
+                  editPost={this.props.postFormOpen}
                 />
               </div>
             }
