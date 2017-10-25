@@ -6,7 +6,7 @@
     - `cd api-server`
     - `npm install`
     - `node server`
-* In another terminal window, start the frontend`
+* In another terminal window, start the frontend
     - `cd frontend`
     - `npm install`
     - `npm start`
