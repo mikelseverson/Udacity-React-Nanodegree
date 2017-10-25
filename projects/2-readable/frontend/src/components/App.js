@@ -31,11 +31,6 @@ import {
 
 import './App.css'
 
-/***TODO***
-  POST LIST
-    * Listed posts are displayed with number of comments. 
-*/
-
 class App extends Component {
 
   componentDidMount() {
@@ -75,6 +70,8 @@ class App extends Component {
                 postsFetch={this.props.postsFetch}
                 createPost={this.props.postFormOpen}
                 postVote={this.props.postVote}
+                deletePost={this.props.deletePost}
+                editPost={this.props.postFormOpen}
               />
             }
           />
