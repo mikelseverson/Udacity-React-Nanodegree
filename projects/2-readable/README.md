@@ -1,5 +1,15 @@
 # Udacity React Nanodegree - Project 2 - 'Readable'
 ![data](https://i.imgur.com/mPP5YN3.png)
+
+## Running Project
+* Install and start the API server
+    - `cd api-server`
+    - `npm install`
+    - `node server`
+* In another terminal window, start the frontend`
+    - `cd frontend`
+    - `npm install`
+    - `npm start`
 ## Project Overview
 For the Readable project, you will build a content and comment web app. 
 
