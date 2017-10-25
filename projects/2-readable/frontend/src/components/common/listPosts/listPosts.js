@@ -22,7 +22,7 @@ class ListPosts extends Component {
         <div className='post-list'>
           {this.props.posts &&
             this.props.posts
-              .map(post => 
+              .map(post => (!post.deleted && 
                 <Card 
                   key={post.id} 
                   className='post-card'>
@@ -48,8 +48,11 @@ class ListPosts extends Component {
                     </Link>
                     <FlatButton label="Upvote" onClick={() => this.props.postVote(post, 'upVote')} />
                     <FlatButton label="Downvote" onClick={() => this.props.postVote(post, 'downVote')}/>
+                    <FlatButton label="Edit" onClick={() => this.props.editPost(post)}/>
+                    <FlatButton label="Remove" onClick={() => this.props.deletePost(post)}/>
                   </CardActions>
                 </Card>
+                )
               )
           }
         </div>
