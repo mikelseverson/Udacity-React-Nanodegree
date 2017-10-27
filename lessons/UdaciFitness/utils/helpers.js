@@ -1,6 +1,11 @@
-// utils/helpers.js
+import React from 'react'
+import { View } from 'react-native'
+import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { white, orange, red } from './colors'
+
 
 export function getMetricMetaInfo (metric) {
+    const styles = {};
     const info = {
       run: {
         displayName: 'Run',
@@ -140,4 +145,3 @@ export function getMetricMetaInfo (metric) {
     const todayUTC = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
     return todayUTC.toISOString().split('T')[0]
   }
-  
