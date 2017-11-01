@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 
 /* Specific Requirements
 * (DONE) Use create-react-native-app to build your project.
@@ -15,14 +15,16 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Button
-          title="Learn More"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
+        <Text>Your Decks</Text>
+        <FlatList
+          data={[{key: 'deck 1'}, {key: 'deck 2'}]}
+          renderItem={({item}) => 
+            <View style={{height: 100, paddingTop: 20}}>
+              <Text>{item.key}</Text>
+              <Text>0 cards</Text>
+            </View>
+          }
         />
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
       </View>
     );
   }
@@ -31,6 +33,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 40,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
