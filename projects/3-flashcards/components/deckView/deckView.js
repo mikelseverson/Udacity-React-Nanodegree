@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Button } from 'react-native';
 export default class DeckView extends React.Component {
   render() {
     const {navigate} = this.props.navigation; 
+    console.log(this.props);
     return (
       <View>
           <Text>Deck Name</Text>

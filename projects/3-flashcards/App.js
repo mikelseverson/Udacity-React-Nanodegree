@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, Platform } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Home from './components/home/home'
 import CreateDeck from './components/createDeck/createDeck'
@@ -48,6 +48,18 @@ const RootNavigator = StackNavigator({
       headerTitle: 'Add Question',
     },
   }
-});
+}, {
+  navigationOptions: 
+    { 
+      headerStyle: { 
+        ...Platform.select({
+          android: {
+            marginTop: Expo.Constants.statusBarHeight,
+          },
+        }),
+      }
+    }
+  }
+);
 
 export default RootNavigator;

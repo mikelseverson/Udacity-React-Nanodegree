@@ -1,9 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
+import { getDecks, getDeck, saveDeckTitle, addCardToDeck } from '../../utils/api'
 
 export default class Home extends React.Component {
+  state = {
+    decks: [],
+  }
+
+  componentDidMount() {
+    getDecks()
+      .then(decks => Object.keys(decks).map(k => decks[k]))
+      .then(decks => this.setState({decks}))
+    }
+
   render() {
-    const {navigate} = this.props.navigation; 
+    const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
         <Button
@@ -13,18 +24,12 @@ export default class Home extends React.Component {
         />
         <FlatList
           style={styles.deckList}
-          data={[
-              {key: 'deck one'}, {key: 'deck 2'}, {key: 'deck 3'}, 
-              {key: 'deck 4'},  {key: 'deck 5'},  {key: 'deck 6'}, 
-              {key: 'deck 7'},  {key: 'deck 8'},  {key: 'deck 9'}, 
-              {key: 'deck 10'}, {key: 'deck 11'}, {key: 'deck 12'},
-              {key: 'deck 13'}, {key: 'deck 14'}, {key: 'deck 15'}, 
-            ]}
+          data={ this.state.decks }
           renderItem={({item}) => 
             <TouchableOpacity 
               style={styles.deckItem} 
-              onPress={() => navigate('DeckView')}>
-              <Text>{item.key}</Text>
+              onPress={() => navigate('DeckView', {post: item})}>
+              <Text>{item.title}</Text>
               <Text>0 cards</Text>
             </TouchableOpacity>
           }
