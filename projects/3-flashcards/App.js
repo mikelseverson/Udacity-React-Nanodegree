@@ -1,5 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import Home from './components/home/home'
+import CreateDeck from './components/createDeck/createDeck'
+import DeckQuiz from './components/deckQuiz/deckQuiz'
+import DeckView from './components/deckView/deckView'
+import CreateQuestion from './components/createQuestion/createQuestion'
 
 /* Specific Requirements
 * (DONE) Use create-react-native-app to build your project.
@@ -11,31 +17,37 @@ import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 * Users should receive a notification to remind themselves to study if they haven't already for that day.
 */
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Your Decks</Text>
-        <FlatList
-          data={[{key: 'deck 1'}, {key: 'deck 2'}]}
-          renderItem={({item}) => 
-            <View style={{height: 100, paddingTop: 20}}>
-              <Text>{item.key}</Text>
-              <Text>0 cards</Text>
-            </View>
-          }
-        />
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 40,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const RootNavigator = StackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      headerTitle: 'Your Decks',
+    },
   },
+  CreateDeck: {
+    screen: CreateDeck,
+    navigationOptions: {
+      headerTitle: 'Create Deck',
+    },
+  },
+  DeckView: {
+    screen: DeckView,
+    navigationOptions: {
+      headerTitle: 'View Deck',
+    },
+  },
+  Quiz : {
+    screen: DeckQuiz,
+    navigationOptions: {
+      headerTitle: 'View Deck',
+    },
+  },
+  CreateQuestion : {
+    screen: CreateQuestion,
+    navigationOptions: {
+      headerTitle: 'View Deck',
+    },
+  }
 });
+
+export default RootNavigator;
