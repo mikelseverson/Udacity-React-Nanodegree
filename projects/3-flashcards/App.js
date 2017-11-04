@@ -36,16 +36,16 @@ const RootNavigator = StackNavigator({
       headerTitle: 'View Deck',
     },
   },
-  Quiz : {
+  DeckQuiz : {
     screen: DeckQuiz,
     navigationOptions: {
-      headerTitle: 'View Deck',
+      headerTitle: 'Quiz',
     },
   },
-  CreateQuestion : {
+  DeckAddQuestion : {
     screen: CreateQuestion,
     navigationOptions: {
-      headerTitle: 'View Deck',
+      headerTitle: 'Add Question',
     },
   }
 });
