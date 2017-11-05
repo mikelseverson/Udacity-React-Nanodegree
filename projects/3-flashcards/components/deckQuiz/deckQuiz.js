@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
+import { clearLocalNotification, setLocalNotification } from '../../utils/helpers';
 
 export default class DeckQuiz extends React.Component {
 
@@ -19,14 +20,17 @@ export default class DeckQuiz extends React.Component {
       this.setState(state => ({
         ...state,
         currentCard: ++state.currentCard,
+        showingAnswer: false,
         correctAnswers: ++state.correctAnswers
       }))
     } else {
       this.setState(state => ({
         ...state,
         correctAnswers: ++state.correctAnswers,
+        showingAnswer: false,
         quizComplete: true,
       }))
+      this.resetNotification()
     }
   }
 
@@ -34,14 +38,22 @@ export default class DeckQuiz extends React.Component {
     if(this.state.cards[this.state.currentCard+1]) {
       this.setState(state => ({
         ...state,
+        showingAnswer: false,
         currentCard: ++state.currentCard
       }))
     } else {
       this.setState(state => ({
         ...state,
+        showingAnswer: false,
         quizComplete: true,
       }))
+      this.resetNotification()
     }
+  }
+
+  resetNotification() {
+    clearLocalNotification()
+      .then(setLocalNotification);
   }
 
   toggleViewAnswer = () => {

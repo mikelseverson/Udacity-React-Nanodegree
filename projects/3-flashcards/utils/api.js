@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-const FLASHCARD_STORAGE_KEY = 'FlashCards'
+const FLASHCARD_STORAGE_KEY = 'Flashcards'
 
 export async function getDecks () {
   return JSON.parse(await AsyncStorage.getItem(FLASHCARD_STORAGE_KEY))
@@ -23,7 +23,6 @@ export function saveDeckTitle (title) {
 }
 
 export async function addCardToDeck (title, card) {
-  console.log(title, card)
   var deck = await getDeck(title)
   deck.cards.push(card)
   return AsyncStorage.mergeItem(
