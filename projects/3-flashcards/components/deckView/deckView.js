@@ -12,7 +12,12 @@ class DeckView extends React.Component {
           <Text>{deckTitle}</Text>
           <Text>{this.props.decks[deckTitle].cards.length} cards</Text>
           <Button title="Add Card" onPress={() => navigate('DeckAddQuestion', {deckAddCard: this.props.deckAddCard, deckTitle})}/>
-          <Button title="Start Quiz" onPress={() => navigate('DeckQuiz', { deck : this.props.decks[deckTitle] })} />
+          {!!this.props.decks[deckTitle].cards.length && 
+            <Button 
+              title="Start Quiz" 
+              onPress={() => navigate('DeckQuiz', { deck : this.props.decks[deckTitle] })}
+            />
+          }
       </View>
     );
   }
