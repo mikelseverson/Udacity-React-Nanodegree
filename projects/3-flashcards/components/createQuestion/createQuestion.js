@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Button } from 'react-native';
+import { StyleSheet, View, TextInput, Button, Text } from 'react-native';
 
 export default class CreateQuestion extends React.Component {
   state = {
@@ -7,35 +7,55 @@ export default class CreateQuestion extends React.Component {
     answer: '',
   }
   submitForm = state => {
-    if(this.props.navigation.state.params.deckAddCard) {
+    if(!state.question || !state.answer) {
+      this.setState(state => ({
+        ...state, 
+        errorMessage: 'Your card needs a question and an answer!'
+      }))
+    } else if(this.props.navigation.state.params.deckAddCard) {
       this.props.navigation.state.params.deckAddCard(
         this.props.navigation.state.params.deckTitle,
-        state
+        { 
+          answer: state.answer, 
+          question: state.question
+        }
       )
+      this.props.navigation.goBack()
     }
   }
 
   render() {
     const {navigate} = this.props.navigation; 
     return (
-      <View>
+      <View style={styles.container}>
         <TextInput 
           value={this.state.question}
+          placeholder='question'
           onChangeText={(question) => this.setState({question})}
         />
         <TextInput 
           value={this.state.answer}
+          placeholder='answer'
           onChangeText={(answer) => this.setState({answer})}
         />
         <Button 
           title='submit new card' 
           onPress={() => this.submitForm(this.state)}
         />
+        <Text style={styles.errorMessage}>
+          {this.state.errorMessage}
+        </Text>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorMessage: {
+    color: 'red'
+  }
 })
