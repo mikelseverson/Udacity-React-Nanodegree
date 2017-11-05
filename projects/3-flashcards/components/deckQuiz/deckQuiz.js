@@ -11,21 +11,37 @@ export default class DeckQuiz extends React.Component {
     currentCard: 0,
     correctAnswers: 0,
     showingAnswer: false,
+    quizComplete: false,
   };
 
   onCorrect = () => {
-    this.setState(state => ({
-      ...state,
-      currentCard: ++state.currentCard,
-      correctAnswers: ++state.correctAnswers
-    }))
+    if(this.state.cards[this.state.currentCard+1]) {
+      this.setState(state => ({
+        ...state,
+        currentCard: ++state.currentCard,
+        correctAnswers: ++state.correctAnswers
+      }))
+    } else {
+      this.setState(state => ({
+        ...state,
+        correctAnswers: ++state.correctAnswers,
+        quizComplete: true,
+      }))
+    }
   }
 
   onIncorrect = () => {
-    this.setState(state => ({
-      ...state,
-      currentCard: ++state.currentCard
-    }))
+    if(this.state.cards[this.state.currentCard+1]) {
+      this.setState(state => ({
+        ...state,
+        currentCard: ++state.currentCard
+      }))
+    } else {
+      this.setState(state => ({
+        ...state,
+        quizComplete: true,
+      }))
+    }
   }
 
   toggleViewAnswer = () => {
@@ -39,22 +55,35 @@ export default class DeckQuiz extends React.Component {
     const { navigate } = this.props.navigation; 
     return (
       <View>
-        <Text>{this.state.currentCard + 1} / {this.state.cards.length}</Text>
-        <Text>Question: {this.state.cards[this.state.currentCard].question}</Text>
-        <Text>Answer: {this.state.cards[this.state.currentCard].answer}</Text>
-        <Text>{this.state.currentCard > 0 && (this.state.correctAnswers / this.state.currentCard) * 100 + '% correct' }</Text>
-        <Button 
-          title="View Answer"
-          onPress={this.toggleViewAnswer}
-        />
-        <Button
-          title="Correct"
-          onPress={this.onCorrect}
-        />
-        <Button 
-          title="Incorrect"
-          onPress={this.onIncorrect}
-        />
+        {this.state.quizComplete && <View>
+          <Text>Quiz Complete</Text>
+          <Text>{ this.state.correctAnswers / this.state.cards.length * 100 + '% correct' }</Text>
+        </View>
+        }
+        {!this.state.quizComplete && <View>
+          <Text>Quiz In Progess</Text>
+          <Text>{this.state.currentCard + 1} / {this.state.cards.length}</Text>
+          {!this.state.showingAnswer ? 
+            <Text>Question: {this.state.cards[this.state.currentCard].question}</Text> :
+            <Text>Answer: {this.state.cards[this.state.currentCard].answer}</Text>
+          }
+          {this.state.currentCard > 0 && 
+            <Text>{this.state.currentCard > 0 && (this.state.correctAnswers / this.state.currentCard) * 100 + '% correct' }</Text>
+          }
+          <Button 
+            title={"View " + (this.state.showingAnswer ? 'Question' : 'Answer')}
+            onPress={this.toggleViewAnswer}
+          />
+          <Button
+            title="Correct"
+            onPress={this.onCorrect}
+          />
+          <Button 
+            title="Incorrect"
+            onPress={this.onIncorrect}
+          />
+        </View>
+        }
       </View>
     );
   }
