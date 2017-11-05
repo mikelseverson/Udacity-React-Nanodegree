@@ -1,18 +1,12 @@
-const initialState = {
-    id: '',
-    name: '',
-    cards: []
-}
+import { DECKS_RECEIVE } from '../actions/decks'
 
-const cardSchema = {
-    id: '',
-    questionText: '',
-    answerText: '',
-    correct: false,
-}
-
-export function decks(state=initialState, action) {
-    // switch(action.type) {
-    //     case ''
-    // }
+export function decks(state={}, action) {
+    let { decks } = action
+    switch(action.type) {
+        case DECKS_RECEIVE: 
+            return decks
+        default: 
+            return {...state}
+        
+    }
 }

@@ -1,36 +1,32 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
-import { getDecks, getDeck, saveDeckTitle, addCardToDeck } from '../../utils/api'
+import { getDecks, getDeck, addCardToDeck } from '../../utils/api'
+import { connect } from 'react-redux'
+import { decksFetch, deckCreate, deckAddCard } from '../../actions/decks'
 
-export default class Home extends React.Component {
-  state = {
-    decks: [],
-  }
-
+class Home extends React.Component {
   componentDidMount() {
-    getDecks()
-      .then(decks => Object.keys(decks).map(k => decks[k]))
-      .then(decks => this.setState({decks}))
-    }
-
+    this.props.decksFetch()
+  }
   render() {
     const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
         <Button
           title="Create a deck"
-          onPress={() => navigate('CreateDeck')}
+          onPress={() => navigate('CreateDeck', {deckCreate: this.props.deckCreate})}
           style={styles.deckCreateButton}
         />
         <FlatList
           style={styles.deckList}
-          data={ this.state.decks }
+          data={this.props && this.props.decks ? Object.keys(this.props.decks).map(k => this.props.decks[k]) : [] }
+          keyExtractor={(item) => item.title } 
           renderItem={({item}) => 
             <TouchableOpacity 
               style={styles.deckItem} 
-              onPress={() => navigate('DeckView', {post: item})}>
+              onPress={() => navigate('DeckView', { deckTitle: item.title })}>
               <Text>{item.title}</Text>
-              <Text>0 cards</Text>
+              <Text>{item.cards.length} cards</Text>
             </TouchableOpacity>
           }
         />
@@ -62,9 +58,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   deckCreateButton: {
-    height: 70,
+    height: 70, 
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
   }
 })
+
+const mapDispatchToProps = dispatch => ({
+  decksFetch: () => dispatch(decksFetch()),
+  deckCreate: deckTitle => dispatch(deckCreate(deckTitle)),
+  deckAddCard: (deckTitle, card) => dispatch(deckAddCard(deckTitle, card)),
+})
+const mapStateToProps = state => state
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

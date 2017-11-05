@@ -1,6 +1,11 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, FlatList, Platform } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import React from 'react'
+import { StyleSheet, Text, View, Button, FlatList, Platform } from 'react-native'
+import { StackNavigator } from 'react-navigation'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk';
+import reducer from './reducers'
+
 import Home from './components/home/home'
 import CreateDeck from './components/createDeck/createDeck'
 import DeckQuiz from './components/deckQuiz/deckQuiz'
@@ -9,7 +14,7 @@ import CreateQuestion from './components/createQuestion/createQuestion'
 
 /* Specific Requirements
 * (DONE) Use create-react-native-app to build your project.
-* Allow users to create a deck which can hold an unlimited number of cards.
+* (DONE) Allow users to create a deck which can hold an unlimited number of cards.
 * Allow users to add a card to a specific deck.
 * The front of the card should display the question.
 * The back of the card should display the answer.
@@ -62,4 +67,12 @@ const RootNavigator = StackNavigator({
   }
 );
 
-export default RootNavigator;
+export default class app extends React.Component {
+  render() {
+    return (
+      <Provider store={createStore(reducer, applyMiddleware(thunk))}>
+        <RootNavigator />
+      </Provider>
+    )
+  }
+}
