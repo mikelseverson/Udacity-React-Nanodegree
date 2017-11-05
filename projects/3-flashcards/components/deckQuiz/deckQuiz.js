@@ -4,11 +4,9 @@ import { clearLocalNotification, setLocalNotification } from '../../utils/helper
 
 export default class DeckQuiz extends React.Component {
 
-  shuffleArray = arr => arr.sort(() => Math.random() - 0.5)
-
   state = {
     showQuestion: true,
-    cards: this.shuffleArray( this.props.navigation.state.params.deck.cards ),
+    cards: this.props.navigation.state.params.deck.cards.sort(() => Math.random() - 0.5),
     currentCard: 0,
     correctAnswers: 0,
     showingAnswer: false,
@@ -51,6 +49,17 @@ export default class DeckQuiz extends React.Component {
     }
   }
 
+  resetQuiz = () => {
+    this.setState({
+      showQuestion: true,
+      cards: this.props.navigation.state.params.deck.cards.sort(() => Math.random() - 0.5),
+      currentCard: 0,
+      correctAnswers: 0,
+      showingAnswer: false,
+      quizComplete: false,
+    })
+  }
+
   resetNotification() {
     clearLocalNotification()
       .then(setLocalNotification);
@@ -64,17 +73,24 @@ export default class DeckQuiz extends React.Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation; 
+    const { navigate, goBack } = this.props.navigation; 
     return (
-      <View>
+      <View style={styles.container}>
         {this.state.quizComplete && <View>
           <Text>Quiz Complete</Text>
           <Text>{ this.state.correctAnswers / this.state.cards.length * 100 + '% correct' }</Text>
+          <Button 
+            title='Return to Deck'
+            onPress={() => goBack()}
+          />
+          <Button
+            title="Play Again"
+            onPress={() => this.resetQuiz()}
+          />
         </View>
         }
         {!this.state.quizComplete && <View>
-          <Text>Quiz In Progess</Text>
-          <Text>{this.state.currentCard + 1} / {this.state.cards.length}</Text>
+          <Text>Card {this.state.currentCard + 1} of {this.state.cards.length}</Text>
           {!this.state.showingAnswer ? 
             <Text>Question: {this.state.cards[this.state.currentCard].question}</Text> :
             <Text>Answer: {this.state.cards[this.state.currentCard].answer}</Text>
@@ -102,5 +118,9 @@ export default class DeckQuiz extends React.Component {
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1
+  },
 })

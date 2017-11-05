@@ -7,6 +7,5 @@ export function decks(state={}, action) {
             return decks
         default: 
             return {...state}
-        
     }
 }

@@ -30,11 +30,13 @@ export default class CreateQuestion extends React.Component {
       <View style={styles.container}>
         <TextInput 
           value={this.state.question}
+          style={styles.input}
           placeholder='question'
           onChangeText={(question) => this.setState({question})}
         />
         <TextInput 
           value={this.state.answer}
+          style={styles.input}
           placeholder='answer'
           onChangeText={(answer) => this.setState({answer})}
         />
@@ -54,6 +56,10 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1
+  },
+  input: {
+    width: 200
   },
   errorMessage: {
     color: 'red'
